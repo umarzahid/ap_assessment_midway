@@ -9,7 +9,10 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
+    <ul>
+        <li><a href="Equipment.aspx">Equipment</a></li>
+        <li><a href="MaintenanceWorks.aspx">Maintenance Works</a></li>
+    </ul>
     </div>
     </form>
 </body>
