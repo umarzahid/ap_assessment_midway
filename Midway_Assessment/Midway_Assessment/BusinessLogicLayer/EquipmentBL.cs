@@ -52,7 +52,7 @@ namespace Midway_Assessment.BusinessLogicLayer
 
             string line = string.Empty;
             ArrayList lines = new ArrayList();
-
+            lines.Add("EquipmentId,Name");
             foreach (DataRow row in dtData.Rows)
             {
                 if (int.Parse(row[0].ToString()) == id)
@@ -77,7 +77,7 @@ namespace Midway_Assessment.BusinessLogicLayer
 
             string line = string.Empty;
             ArrayList lines = new ArrayList();
-
+            lines.Add("EquipmentId,Name");
             foreach (DataRow row in dtData.Rows)
             {
                 if (int.Parse(row[0].ToString()) == objEquip.ID)

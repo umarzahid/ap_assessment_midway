@@ -27,6 +27,7 @@
             <tr>
                 <td class="auto-style2">&nbsp;</td>
                 <td class="auto-style1"></td>
+                <td class="auto-style1">&nbsp;</td>
             </tr>
             <tr>
                 <td class="auto-style3">
@@ -34,6 +35,9 @@
                 </td>
                 <td>
                     <asp:TextBox ID="txtEquipName" runat="server" Height="25px" Width="336px"></asp:TextBox>
+                </td>
+                <td>
+                    <asp:RequiredFieldValidator ID="valEquipName" runat="server" ControlToValidate="txtEquipName" ErrorMessage="Equipment name is required." Width="206px"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
@@ -43,6 +47,8 @@
 &nbsp;<asp:Button ID="btnUpdate" runat="server" Text="Update" Width="89px" Height="34px" />
 &nbsp;<asp:Button ID="btnDelete" runat="server" Text="Delete" Width="89px" OnClick="btnDelete_Click" Height="34px" />
 &nbsp;</td>
+                <td>
+                    &nbsp;</td>
             </tr>
         </table>
     
