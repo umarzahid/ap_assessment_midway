@@ -63,6 +63,9 @@
     <Content Include="WebPages\MaintenanceWorks.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogicLayer\EquipmentBL.cs" />
+    <Compile Include="ClassProperties\Equipment.cs" />
+    <Compile Include="DataAccessLayer\EquipmentDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebPages\Equipment.aspx.cs">
       <DependentUpon>Equipment.aspx</DependentUpon>
@@ -87,6 +90,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Database\Equipment.csv" />
+    <Content Include="Database\MaintenanceWorks.csv" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -95,9 +100,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BusinessLogicLayer\" />
-    <Folder Include="DataAccessLayer\" />
-    <Folder Include="Database\" />
     <Folder Include="Style\" />
   </ItemGroup>
   <PropertyGroup>
