@@ -14,14 +14,20 @@ namespace Midway_Assessment.WebPages
         {
             try
             {
-                EquipmentBL objEquipBL = new EquipmentBL();
-                gvEquipment.DataSource = objEquipBL.ReadAllData(Request.MapPath(@"~\Database\Equipment.csv"));
-                gvEquipment.DataBind();
+                
+                BindGrid();
             }
             catch (Exception ex)
             {
                 ThrowException(ex.Message);
             }
+        }
+
+        private void BindGrid()
+        {
+            EquipmentBL objEquipBL = new EquipmentBL();
+            gvEquipment.DataSource = objEquipBL.ReadAllData(Request.MapPath(@"~\Database\Equipment.csv"));
+            gvEquipment.DataBind();
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -75,6 +81,23 @@ namespace Midway_Assessment.WebPages
             Response.Write("<h2>Error Page</h2>\n");
             Response.Write("<p>"+exception+"</p>\n");
             Response.Write("==========================================");
+            
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void txtEquipName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void gvEquipment_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvEquipment.PageIndex = e.NewPageIndex;
+            BindGrid();
             
         }
     }
