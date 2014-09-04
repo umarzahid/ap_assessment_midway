@@ -59,6 +59,7 @@
   <ItemGroup>
     <Content Include="Web.config" />
     <Content Include="WebPages\Equipment.aspx" />
+    <Content Include="WebPages\Error.aspx" />
     <Content Include="WebPages\Index.aspx" />
     <Content Include="WebPages\MaintenanceWorks.aspx" />
   </ItemGroup>
@@ -73,6 +74,13 @@
     </Compile>
     <Compile Include="WebPages\Equipment.aspx.designer.cs">
       <DependentUpon>Equipment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>

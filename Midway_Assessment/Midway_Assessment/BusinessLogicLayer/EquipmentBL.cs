@@ -10,11 +10,16 @@ namespace Midway_Assessment.BusinessLogicLayer
     public class EquipmentBL
     {
 
-        public DataTable GetInTable(string inputData)
+        internal DataTable ReadAllData(string filePath)
         {
             EquipmentDB objEquipDB = new EquipmentDB();
+            return GetInTable( objEquipDB.ReadAll(filePath));
+        }
 
-            string[] arrayInputData = inputData.Split( '\n');
+       internal DataTable GetInTable(string inputData)
+        {
+           
+            string[] arrayInputData = inputData.Split('\n');
 
             DataTable dtEquipmentData = new DataTable();
             if (arrayInputData.Length > 0)
@@ -41,7 +46,7 @@ namespace Midway_Assessment.BusinessLogicLayer
 
                             dtEquipmentData.Rows.Add(drEquipment);
                         }
-                       
+
                     }
 
                     return dtEquipmentData;
@@ -55,10 +60,7 @@ namespace Midway_Assessment.BusinessLogicLayer
             {
                 return dtEquipmentData;
             }
-            
-            
 
- 
         }
     }
 }

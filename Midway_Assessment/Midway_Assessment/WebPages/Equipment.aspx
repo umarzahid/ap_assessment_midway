@@ -23,7 +23,7 @@
     <form id="form1" runat="server">
     <div>
     
-        <table style="width:100%;">
+        <table style="width:200px; margin-left:auto; margin-right:auto;">
             <tr>
                 <td class="auto-style2">&nbsp;</td>
                 <td class="auto-style1"></td>
@@ -33,21 +33,21 @@
                     <asp:Label ID="lblEquipName" runat="server">Name</asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtEquipName" runat="server" Height="25px" Width="407px"></asp:TextBox>
+                    <asp:TextBox ID="txtEquipName" runat="server" Height="25px" Width="336px"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td class="auto-style3">&nbsp;</td>
                 <td>
-                    <asp:Button ID="btnAdd" runat="server" Text="Add" Width="89px" />
-&nbsp;<asp:Button ID="btnUpdate" runat="server" Text="Update" Width="89px" />
-&nbsp;<asp:Button ID="btnDelete" runat="server" Text="Delete" Width="89px" />
+                    <asp:Button ID="btnAdd" runat="server" Text="Add" Width="89px" Height="34px" />
+&nbsp;<asp:Button ID="btnUpdate" runat="server" Text="Update" Width="89px" Height="34px" />
+&nbsp;<asp:Button ID="btnDelete" runat="server" Text="Delete" Width="89px" OnClick="btnDelete_Click" Height="34px" />
 &nbsp;</td>
             </tr>
         </table>
     
     </div>
-        <asp:GridView ID="GridView1" runat="server" Height="175px" Width="643px">
+        <asp:GridView ID="gvEquipment" GridLines="Both" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Center" >
         </asp:GridView>
     </form>
 </body>
