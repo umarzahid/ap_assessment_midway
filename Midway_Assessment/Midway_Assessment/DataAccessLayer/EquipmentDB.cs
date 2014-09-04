@@ -25,13 +25,13 @@ namespace Midway_Assessment.DataAccessLayer
                 throw new Exception(ex.Message);
             }
         }
-        public bool Append(string strPath, string data)
+        public bool Add(string filePath, string data)
         {
             bool savedSuccessfully = false;
             try
             {
 
-                using (StreamWriter objWriter = new StreamWriter(strPath, true))
+                using (StreamWriter objWriter = new StreamWriter(filePath, true))
                 {
                      objWriter.WriteLine(data);
                     savedSuccessfully = true;
@@ -44,18 +44,18 @@ namespace Midway_Assessment.DataAccessLayer
             }
             return savedSuccessfully;
         }
-        public bool Insert(string strPath, string[] data)
+        internal bool Update(string filePath, System.Collections.ArrayList lines)
         {
-            bool savedSuccessfully = false;
+            bool updatedSuccessfully = false;
             try
             {
 
-                using (StreamWriter objWriter = new StreamWriter(strPath, false))
+                using (StreamWriter objWriter = new StreamWriter(filePath, false))
                 {
-                    foreach(string line in data)
-                    objWriter.WriteLine(line);
+                    foreach (string line in lines)
+                        objWriter.WriteLine(line);
 
-                    savedSuccessfully = true;
+                    updatedSuccessfully = true;
                 }
 
             }
@@ -63,7 +63,7 @@ namespace Midway_Assessment.DataAccessLayer
             {
                 throw new Exception(ex.Message);
             }
-            return savedSuccessfully;
+            return updatedSuccessfully;
         }
     }
 }

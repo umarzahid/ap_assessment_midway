@@ -39,7 +39,7 @@ namespace MidwayAssessmentTest
         {
             EquipmentDB equipDB = new EquipmentDB();
 
-            bool result = equipDB.Append(@"C:\Users\pcPareto\Documents\ap_assessment_midway\Midway_Assessment\Midway_Assessment\Database\Equipment.csv","1,test");
+            bool result = equipDB.AddNew(@"C:\Users\pcPareto\Documents\ap_assessment_midway\Midway_Assessment\Midway_Assessment\Database\Equipment.csv","1,test");
             Assert.AreEqual(true, result);
         }
 
@@ -95,6 +95,27 @@ namespace MidwayAssessmentTest
 
             Assert.AreEqual(true, result);
         }
+
+               
+                [TestMethod]
+                public void Test_UpdateRecord()
+                {
+                    EquipmentBL equipBL = new EquipmentBL();
+                     Midway_Assessment.ClassProperties.Equipment objEquip  = new Midway_Assessment.ClassProperties.Equipment();
+                    objEquip.ID = 7;
+                    objEquip.Name = "Testing Update";
+                    bool result = equipBL.UpdateRecord(@"C:\Users\pcPareto\Documents\ap_assessment_midway\Midway_Assessment\Midway_Assessment\Database\Equipment.csv",objEquip);
+                    Assert.AreEqual(true, result);
+                }
+                [TestMethod]
+                public void Test_DeleteRecord()
+                {
+                    EquipmentBL equipBL = new EquipmentBL();
+                    Midway_Assessment.ClassProperties.Equipment objEquip = new Midway_Assessment.ClassProperties.Equipment();
+                    int id = 7;
+                    bool result = equipBL.DeleteRecord(@"C:\Users\pcPareto\Documents\ap_assessment_midway\Midway_Assessment\Midway_Assessment\Database\Equipment.csv", id);
+                    Assert.AreEqual(true, result);
+                }
 
 
     }

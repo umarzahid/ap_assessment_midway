@@ -1,6 +1,7 @@
 ﻿using Midway_Assessment.ClassProperties;
 using Midway_Assessment.DataAccessLayer;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -17,17 +18,86 @@ namespace Midway_Assessment.BusinessLogicLayer
             return GetInTable( objEquipDB.ReadAll(filePath));
         }
 
-        public DataTable Update(string filePath)
+        public bool AddRecord(string filePath, Equipment objEquip)
         {
             EquipmentDB objEquipDB = new EquipmentDB();
-            return GetInTable(objEquipDB.ReadAll(filePath));
+            string data = objEquip.ID + "," + objEquip.Name;
+            return objEquipDB.Add(filePath, data);
+
         }
-        //public bool AlreadyExists(string name)
-        //{
-        //    EquipmentDB objEquipDB = new EquipmentDB();
-        //    DataTable dtData = GetInTable(objEquipDB.ReadAll(filePath));
-        
-        //}
+        public bool UpdateRecord(string filePath, Equipment objEquip)
+        {
+            EquipmentDB objEquipDB = new EquipmentDB();
+            ArrayList lines = Edit(filePath, objEquip); //This searches the targeted id and replaces name string.
+           return objEquipDB.Update(filePath, lines);
+            
+        }
+        public bool DeleteRecord(string filePath, int id)
+        {
+            EquipmentDB objEquipDB = new EquipmentDB();
+            ArrayList lines = Delete(filePath, id); //This searches the targeted id and deletes the record.
+            return objEquipDB.Update(filePath, lines);
+            
+        }
+        /// <summary>
+        /// Searches required string by ID and then skips it.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="objEquip"></param>
+        /// <returns></returns>
+        private ArrayList Delete(string filePath, int id)
+        {
+            EquipmentDB objEquipDB = new EquipmentDB();
+            DataTable dtData = GetInTable(objEquipDB.ReadAll(filePath));
+
+            string line = string.Empty;
+            ArrayList lines = new ArrayList();
+
+            foreach (DataRow row in dtData.Rows)
+            {
+                if (int.Parse(row[0].ToString()) == id)
+                { }
+                else
+                    line = row[0].ToString() + "," + row[1].ToString();
+                lines.Add(line);
+            }
+            return lines;
+        }
+       
+        /// <summary>
+        /// Searches required string by ID and then replaces old value with new value.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="objEquip"></param>
+        /// <returns></returns>
+        private ArrayList Edit(string filePath, Equipment objEquip)
+        {
+             EquipmentDB objEquipDB = new EquipmentDB();
+            DataTable dtData = GetInTable(objEquipDB.ReadAll(filePath));
+
+            string line = string.Empty;
+            ArrayList lines = new ArrayList();
+
+            foreach (DataRow row in dtData.Rows)
+            {
+                if (int.Parse(row[0].ToString()) == objEquip.ID)
+                {
+                    line = row[0].ToString() + "," + objEquip.Name;
+                }
+                else
+                {
+                    line = row[0].ToString() + "," + row[1].ToString();
+                }
+                lines.Add(line);
+            }
+            return lines;
+        }
+        /// <summary>
+        /// Finds the record based on name of the equipment.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public Equipment Find( string filePath,string name)
         {
             EquipmentDB objEquipDB = new EquipmentDB();
@@ -46,7 +116,11 @@ namespace Midway_Assessment.BusinessLogicLayer
 
         }
 
-
+        /// <summary>
+        /// Arranges the data into table format
+        /// </summary>
+        /// <param name="inputData"></param>
+        /// <returns></returns>
        public DataTable GetInTable(string inputData)
         {
            
@@ -93,7 +167,12 @@ namespace Midway_Assessment.BusinessLogicLayer
             }
 
         }
-
+        /// <summary>
+       /// Checks if there is any duplication in the file for the given name of equipment during first time save process.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
        public bool AlreadyExists_NewRecord(string filePath, string name)
        {
            if (Find(filePath, name).ID > 0)
@@ -105,7 +184,14 @@ namespace Midway_Assessment.BusinessLogicLayer
                return false;
            }
        }
-
+        /// <summary>
+        /// Checks if there is any duplication in the file for the given name of equipment during update process.
+        /// .
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="name"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
        public bool AlreadyExists_Update(string filePath, string name, int id)
        {
            Equipment objEquipment = Find(filePath, name);
@@ -121,5 +207,6 @@ namespace Midway_Assessment.BusinessLogicLayer
                return false;
            }
        }
+
     }
 }
