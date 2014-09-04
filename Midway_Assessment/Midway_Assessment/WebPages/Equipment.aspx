@@ -23,7 +23,7 @@
     <form id="form1" runat="server">
     <div>
     
-        <table style="width:200px; margin-left:auto; margin-right:auto;">
+        <table style="width:200px; margin-bottom:10px;">
             <tr>
                 <td class="auto-style2">&nbsp;</td>
                 <td class="auto-style1"></td>
@@ -47,7 +47,12 @@
         </table>
     
     </div>
-        <asp:GridView ID="gvEquipment" GridLines="Both" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Center" >
+        <asp:GridView ID="gvEquipment" AutoGenerateColumns="False" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Left" Width="307px" >
+            <AlternatingRowStyle BackColor="Gainsboro" />
+            <Columns>
+                <asp:BoundField AccessibleHeaderText="Name" DataField="name" HeaderText="Name" SortExpression="name" />
+            </Columns>
+            <HeaderStyle BackColor="Brown" ForeColor="White" />
         </asp:GridView>
     </form>
 </body>

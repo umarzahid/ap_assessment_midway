@@ -1,4 +1,5 @@
-﻿using Midway_Assessment.DataAccessLayer;
+﻿using Midway_Assessment.ClassProperties;
+using Midway_Assessment.DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,13 +11,43 @@ namespace Midway_Assessment.BusinessLogicLayer
     public class EquipmentBL
     {
 
-        internal DataTable ReadAllData(string filePath)
+        public DataTable ReadAllData(string filePath)
         {
             EquipmentDB objEquipDB = new EquipmentDB();
             return GetInTable( objEquipDB.ReadAll(filePath));
         }
 
-       internal DataTable GetInTable(string inputData)
+        public DataTable Update(string filePath)
+        {
+            EquipmentDB objEquipDB = new EquipmentDB();
+            return GetInTable(objEquipDB.ReadAll(filePath));
+        }
+        //public bool AlreadyExists(string name)
+        //{
+        //    EquipmentDB objEquipDB = new EquipmentDB();
+        //    DataTable dtData = GetInTable(objEquipDB.ReadAll(filePath));
+        
+        //}
+        public Equipment Find( string filePath,string name)
+        {
+            EquipmentDB objEquipDB = new EquipmentDB();
+            Equipment objEquip = new Equipment();
+            DataTable dtData = GetInTable(objEquipDB.ReadAll(filePath));
+
+            DataRow[] rowColl = dtData.Select("name = '"+name+"'");
+            if (rowColl.Length > 0)
+            {
+                DataRow newRow = rowColl[0];
+                objEquip.ID = int.Parse(newRow[0].ToString());
+                objEquip.Name = newRow[1].ToString();
+
+            }
+            return objEquip;
+
+        }
+
+
+       public DataTable GetInTable(string inputData)
         {
            
             string[] arrayInputData = inputData.Split('\n');
@@ -41,8 +72,8 @@ namespace Midway_Assessment.BusinessLogicLayer
                         if (arrayNextRow.Length == 2)
                         {
                             DataRow drEquipment = dtEquipmentData.NewRow();
-                            drEquipment[arrayFirstRow[0]] = arrayNextRow[0];
-                            drEquipment[arrayFirstRow[1]] = arrayNextRow[1];
+                            drEquipment[arrayFirstRow[0]] = arrayNextRow[0].Trim('\r').Trim();
+                            drEquipment[arrayFirstRow[1]] = arrayNextRow[1].Trim('\r').Trim();
 
                             dtEquipmentData.Rows.Add(drEquipment);
                         }
@@ -62,5 +93,33 @@ namespace Midway_Assessment.BusinessLogicLayer
             }
 
         }
+
+       public bool AlreadyExists_NewRecord(string filePath, string name)
+       {
+           if (Find(filePath, name).ID > 0)
+           {
+               return true;
+           }
+           else
+           {
+               return false;
+           }
+       }
+
+       public bool AlreadyExists_Update(string filePath, string name, int id)
+       {
+           Equipment objEquipment = Find(filePath, name);
+           if (objEquipment.ID > 0)
+           {
+               if (objEquipment.ID == id)
+                   return false;
+               else
+                   return true;
+           }
+           else
+           {
+               return false;
+           }
+       }
     }
 }

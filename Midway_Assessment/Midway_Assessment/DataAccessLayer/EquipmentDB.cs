@@ -25,5 +25,45 @@ namespace Midway_Assessment.DataAccessLayer
                 throw new Exception(ex.Message);
             }
         }
+        public bool Append(string strPath, string data)
+        {
+            bool savedSuccessfully = false;
+            try
+            {
+
+                using (StreamWriter objWriter = new StreamWriter(strPath, true))
+                {
+                     objWriter.WriteLine(data);
+                    savedSuccessfully = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return savedSuccessfully;
+        }
+        public bool Insert(string strPath, string[] data)
+        {
+            bool savedSuccessfully = false;
+            try
+            {
+
+                using (StreamWriter objWriter = new StreamWriter(strPath, false))
+                {
+                    foreach(string line in data)
+                    objWriter.WriteLine(line);
+
+                    savedSuccessfully = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return savedSuccessfully;
+        }
     }
 }
