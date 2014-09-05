@@ -49,6 +49,15 @@ namespace Midway_Assessment.WebPages {
         protected global::System.Web.UI.WebControls.TextBox txtEquipName;
         
         /// <summary>
+        /// uniqueValidator_Add control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator uniqueValidator_Add;
+        
+        /// <summary>
         /// valEquipName control.
         /// </summary>
         /// <remarks>
