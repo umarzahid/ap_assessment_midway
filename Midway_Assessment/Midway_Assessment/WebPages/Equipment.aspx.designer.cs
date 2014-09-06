@@ -22,15 +22,6 @@ namespace Midway_Assessment.WebPages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// vsEquimentErorMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary vsEquimentErorMessage;
-        
-        /// <summary>
         /// lblEquipName control.
         /// </summary>
         /// <remarks>
@@ -49,22 +40,31 @@ namespace Midway_Assessment.WebPages {
         protected global::System.Web.UI.WebControls.TextBox txtEquipName;
         
         /// <summary>
-        /// uniqueValidator_Add control.
+        /// validatorAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator uniqueValidator_Add;
+        protected global::System.Web.UI.WebControls.CustomValidator validatorAdd;
         
         /// <summary>
-        /// valEquipName control.
+        /// validatorUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator valEquipName;
+        protected global::System.Web.UI.WebControls.CustomValidator validatorUpdate;
+        
+        /// <summary>
+        /// validatorDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator validatorDelete;
         
         /// <summary>
         /// btnAdd control.

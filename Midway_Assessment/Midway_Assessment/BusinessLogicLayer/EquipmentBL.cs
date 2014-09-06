@@ -11,32 +11,39 @@ namespace Midway_Assessment.BusinessLogicLayer
 {
     public class EquipmentBL
     {
+        string FilePath = string.Empty;
 
-        public DataTable ReadAllData(string filePath)
+        public EquipmentBL(string filePath)
         {
-            EquipmentDB objEquipDB = new EquipmentDB();
-            return GetInTable( objEquipDB.ReadAll(filePath));
+            FilePath = filePath;
         }
 
-        public bool AddRecord(string filePath, Equipment objEquip)
+        public DataTable ReadAllData()
         {
             EquipmentDB objEquipDB = new EquipmentDB();
-            string data = objEquip.ID + "," + objEquip.Name;
-            return objEquipDB.Add(filePath, data);
+            return GetInTable( objEquipDB.ReadAll(FilePath));
+        }
+
+        public bool AddRecord(Equipment objEquip)
+        {
+            EquipmentDB objEquipDB = new EquipmentDB();
+
+            string data = (GetMaxID() + 1).ToString() + "," + objEquip.Name; //maintaining identity
+            return objEquipDB.Add(FilePath, data);
 
         }
-        public bool UpdateRecord(string filePath, Equipment objEquip)
+        public bool UpdateRecord( Equipment objEquip)
         {
             EquipmentDB objEquipDB = new EquipmentDB();
-            ArrayList lines = Edit(filePath, objEquip); //This searches the targeted id and replaces name string.
-           return objEquipDB.Update(filePath, lines);
+            ArrayList lines = Edit( objEquip); //This searches the targeted id and replaces name string.
+           return objEquipDB.Update(FilePath, lines);
             
         }
-        public bool DeleteRecord(string filePath, int id)
+        public bool DeleteRecord(int id)
         {
             EquipmentDB objEquipDB = new EquipmentDB();
-            ArrayList lines = Delete(filePath, id); //This searches the targeted id and deletes the record.
-            return objEquipDB.Update(filePath, lines);
+            ArrayList lines = Delete(id); //This searches the targeted id and deletes the record.
+            return objEquipDB.Update(FilePath, lines);
             
         }
         /// <summary>
@@ -45,10 +52,10 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <param name="filePath"></param>
         /// <param name="objEquip"></param>
         /// <returns></returns>
-        private ArrayList Delete(string filePath, int id)
+        private ArrayList Delete(int id)
         {
             EquipmentDB objEquipDB = new EquipmentDB();
-            DataTable dtData = GetInTable(objEquipDB.ReadAll(filePath));
+            DataTable dtData = GetInTable(objEquipDB.ReadAll(FilePath));
 
             string line = string.Empty;
             ArrayList lines = new ArrayList();
@@ -58,8 +65,10 @@ namespace Midway_Assessment.BusinessLogicLayer
                 if (int.Parse(row[0].ToString()) == id)
                 { }
                 else
+                {
                     line = row[0].ToString() + "," + row[1].ToString();
-                lines.Add(line);
+                    lines.Add(line);
+                }
             }
             return lines;
         }
@@ -70,10 +79,10 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <param name="filePath"></param>
         /// <param name="objEquip"></param>
         /// <returns></returns>
-        private ArrayList Edit(string filePath, Equipment objEquip)
+        private ArrayList Edit( Equipment objEquip)
         {
              EquipmentDB objEquipDB = new EquipmentDB();
-            DataTable dtData = GetInTable(objEquipDB.ReadAll(filePath));
+            DataTable dtData = GetInTable(objEquipDB.ReadAll(FilePath));
 
             string line = string.Empty;
             ArrayList lines = new ArrayList();
@@ -98,11 +107,11 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <param name="filePath"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Equipment Find( string filePath,string name)
+        public Equipment Find(string name)
         {
             EquipmentDB objEquipDB = new EquipmentDB();
             Equipment objEquip = new Equipment();
-            DataTable dtData = GetInTable(objEquipDB.ReadAll(filePath));
+            DataTable dtData = GetInTable(objEquipDB.ReadAll(FilePath));
 
             DataRow[] rowColl = dtData.Select("name = '"+name+"'");
             if (rowColl.Length > 0)
@@ -136,7 +145,7 @@ namespace Midway_Assessment.BusinessLogicLayer
                     arrayFirstRow[0] = arrayFirstRow[0].Trim();
                     arrayFirstRow[1] = arrayFirstRow[1].Trim();
 
-                    dtEquipmentData.Columns.Add(arrayFirstRow[0].Trim());
+                    dtEquipmentData.Columns.Add(arrayFirstRow[0].Trim(), typeof(int));
                     dtEquipmentData.Columns.Add(arrayFirstRow[1].Trim());
 
                     for (int index = 1; index < arrayInputData.Length; ++index)
@@ -173,9 +182,9 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <param name="filePath"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-       public bool AlreadyExists_NewRecord(string filePath, string name)
+       public bool AlreadyExists_NewRecord(string name)
        {
-           if (Find(filePath, name).ID > 0)
+           if (Find(name).ID > 0)
            {
                return true;
            }
@@ -192,9 +201,9 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <param name="name"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-       public bool AlreadyExists_Update(string filePath, string name, int id)
+       public bool AlreadyExists_Update( string name, int id)
        {
-           Equipment objEquipment = Find(filePath, name);
+           Equipment objEquipment = Find( name);
            if (objEquipment.ID > 0)
            {
                if (objEquipment.ID == id)
@@ -208,5 +217,16 @@ namespace Midway_Assessment.BusinessLogicLayer
            }
        }
 
+
+       public int GetMaxID()
+       {
+           EquipmentDB objEquipDB = new EquipmentDB();
+           DataTable dtEquipData = GetInTable(objEquipDB.ReadAll(FilePath));
+
+           int maxID = 0;
+           int.TryParse(dtEquipData.Compute("Max(EquipmentId)", "").ToString(),out maxID);
+
+           return maxID;
+       }
     }
 }
