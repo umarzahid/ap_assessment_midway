@@ -30,17 +30,17 @@ namespace Midway_Assessment.DataAccessLayer
             bool savedSuccessfully = false;
             try
             {
-                using (FileStream objFile = new FileStream(filePath, FileMode.Append, FileAccess.Write, FileShare.None))
+               // using (FileStream objFile = new FileStream(filePath, FileMode.Append, FileAccess.ReadWrite, FileShare.None))
                 {
-                    using (StreamWriter objWriter = new StreamWriter(objFile))
+                    using (StreamWriter objWriter = new StreamWriter(filePath, true))
                     {
                         objWriter.WriteLine(data);
                         savedSuccessfully = true;
                         objWriter.Close();
                         objWriter.Dispose();
                     }
-                    objFile.Flush();
-                    objFile.Close();
+                    //objFile.Flush();
+                    //objFile.Close();
                 }
             }
             catch (Exception ex)
@@ -55,7 +55,7 @@ namespace Midway_Assessment.DataAccessLayer
             bool updatedSuccessfully = false;
             try
             {
-                using (FileStream objFile = new FileStream(filePath, FileMode.Append, FileAccess.Write, FileShare.None))
+              //  using (FileStream objFile = new FileStream(filePath, FileMode.Append, FileAccess.Write, FileShare.None))
                 {
                     using (StreamWriter objWriter = new StreamWriter(filePath, false))
                     {
@@ -65,8 +65,8 @@ namespace Midway_Assessment.DataAccessLayer
                         objWriter.Dispose();
                         updatedSuccessfully = true;
                     }
-                    objFile.Flush();
-                    objFile.Close();
+                    //objFile.Flush();
+                    //objFile.Close();
                 }
             }
             catch (Exception ex)

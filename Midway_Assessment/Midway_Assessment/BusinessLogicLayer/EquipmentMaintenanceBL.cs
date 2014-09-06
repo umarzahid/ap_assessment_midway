@@ -107,15 +107,15 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// Finds the record based on name of the EquipmentMaintenance.
         /// </summary>
         /// <param name="filePath"></param>
-        /// <param name="name"></param>
+        /// <param name="equipMaintenanceID"></param>
         /// <returns></returns>
-        public EquipmentMaintenance Find(string equipID)
+        public EquipmentMaintenance Find(int equipMaintenanceID)
         {
             EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
             EquipmentMaintenance objEquipMaintenance = new EquipmentMaintenance();
             DataTable dtData = GetInTable(objEquipMaintenanceDB.ReadAll(FilePath));
 
-            DataRow[] rowColl = dtData.Select("EquipmentId = '" + equipID + "'");
+            DataRow[] rowColl = dtData.Select("MaintenanceWorkId = " + equipMaintenanceID + "");
             if (rowColl.Length > 0)
             {
                 DataRow newRow = rowColl[0];
@@ -146,23 +146,36 @@ namespace Midway_Assessment.BusinessLogicLayer
             {
                 string[] arrayFirstRow = arrayInputData[0].Split(',');
                 string[] arrayNextRow;
-                if (arrayFirstRow.Length == 2)
+                if (arrayFirstRow.Length == 6)
                 {
-                    arrayFirstRow[0] = arrayFirstRow[0].Trim();
-                    arrayFirstRow[1] = arrayFirstRow[1].Trim();
+                    arrayFirstRow[0] = arrayFirstRow[0].Trim('\r').Trim();
+                    arrayFirstRow[1] = arrayFirstRow[1].Trim('\r').Trim();
+                    arrayFirstRow[2] = arrayFirstRow[2].Trim('\r').Trim();
+                    arrayFirstRow[3] = arrayFirstRow[3].Trim('\r').Trim();
+                    arrayFirstRow[4] = arrayFirstRow[4].Trim('\r').Trim();
+                    arrayFirstRow[5] = arrayFirstRow[5].Trim('\r').Trim();
 
-                    dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[0].Trim(), typeof(int));
-                    dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[1].Trim());
-
+                    dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[0].Trim('\r').Trim(), typeof(int));
+                    dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[1].Trim('\r').Trim());
+                    dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[2].Trim('\r').Trim());
+                    dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[3].Trim('\r').Trim());
+                    dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[4].Trim('\r').Trim());
+                    dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[5].Trim('\r').Trim());
+                    
                     for (int index = 1; index < arrayInputData.Length; ++index)
                     {
                         arrayNextRow = null;
                         arrayNextRow = arrayInputData[index].Split(',');
-                        if (arrayNextRow.Length == 2)
+                        if (arrayNextRow.Length == 6)
                         {
                             DataRow drEquipmentMaintenance = dtEquipmentMaintenanceData.NewRow();
                             drEquipmentMaintenance[arrayFirstRow[0]] = arrayNextRow[0].Trim('\r').Trim();
                             drEquipmentMaintenance[arrayFirstRow[1]] = arrayNextRow[1].Trim('\r').Trim();
+                            drEquipmentMaintenance[arrayFirstRow[2]] = arrayNextRow[2].Trim('\r').Trim();
+                            drEquipmentMaintenance[arrayFirstRow[3]] = arrayNextRow[3].Trim('\r').Trim();
+                            drEquipmentMaintenance[arrayFirstRow[4]] = arrayNextRow[4].Trim('\r').Trim();
+                            drEquipmentMaintenance[arrayFirstRow[5]] = arrayNextRow[5].Trim('\r').Trim();
+
 
                             dtEquipmentMaintenanceData.Rows.Add(drEquipmentMaintenance);
                         }
@@ -182,46 +195,46 @@ namespace Midway_Assessment.BusinessLogicLayer
             }
 
         }
-        /// <summary>
-       /// Checks if there is any duplication in the file for the given name of EquipmentMaintenance during first time save process.
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-       public bool AlreadyExists_NewRecord(string name)
-       {
-           if (Find(name).ID > 0)
-           {
-               return true;
-           }
-           else
-           {
-               return false;
-           }
-       }
-        /// <summary>
-        /// Checks if there is any duplication in the file for the given name of EquipmentMaintenance during update process.
-        /// .
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <param name="name"></param>
-        /// <param name="id"></param>
-        /// <returns></returns>
-       public bool AlreadyExists_Update( string name, int id)
-       {
-           EquipmentMaintenance objEquipMaintenancementMaintenance = Find( name);
-           if (objEquipMaintenancementMaintenance.ID > 0)
-           {
-               if (objEquipMaintenancementMaintenance.ID == id)
-                   return false;
-               else
-                   return true;
-           }
-           else
-           {
-               return false;
-           }
-       }
+       // /// <summary>
+       ///// Checks if there is any duplication in the file for the given name of EquipmentMaintenance during first time save process.
+       // /// </summary>
+       // /// <param name="filePath"></param>
+       // /// <param name="name"></param>
+       // /// <returns></returns>
+       //public bool AlreadyExists_NewRecord(string name)
+       //{
+       //    if (Find(name).ID > 0)
+       //    {
+       //        return true;
+       //    }
+       //    else
+       //    {
+       //        return false;
+       //    }
+       //}
+       // /// <summary>
+       // /// Checks if there is any duplication in the file for the given name of EquipmentMaintenance during update process.
+       // /// .
+       // /// </summary>
+       // /// <param name="filePath"></param>
+       // /// <param name="name"></param>
+       // /// <param name="id"></param>
+       // /// <returns></returns>
+       //public bool AlreadyExists_Update( string name, int id)
+       //{
+       //    EquipmentMaintenance objEquipMaintenancementMaintenance = Find( name);
+       //    if (objEquipMaintenancementMaintenance.ID > 0)
+       //    {
+       //        if (objEquipMaintenancementMaintenance.ID == id)
+       //            return false;
+       //        else
+       //            return true;
+       //    }
+       //    else
+       //    {
+       //        return false;
+       //    }
+       //}
 
 
        public int GetMaxID()

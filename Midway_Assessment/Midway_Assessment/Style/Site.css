@@ -2,13 +2,17 @@
     font-family :Verdana;
 }
 .textbox-style {
-  font: 12pt verdana;
+  font: 14px verdana;
   
 }
 .label-style {
-    font: 14pt verdana;
+    font: 12px verdana;
   font-weight:bold;
   margin:5px;
+}
+.combobox-style  {
+     font-size:14px;
+          
 }
 h1 {
     text-align:center;

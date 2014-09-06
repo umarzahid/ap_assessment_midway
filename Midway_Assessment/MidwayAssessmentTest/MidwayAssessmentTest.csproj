@@ -52,8 +52,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BusinessAccessLayer_Test\EquipmentMaintenanceBL_TDD.cs" />
     <Compile Include="DataAccessLayer_Test\EquipmentDB_TDD.cs" />
     <Compile Include="BusinessAccessLayer_Test\EquipmentBL_TDD.cs" />
+    <Compile Include="DataAccessLayer_Test\EquipmentMaintenanceDB_TDD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
