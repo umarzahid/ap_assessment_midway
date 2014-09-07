@@ -9,7 +9,8 @@ namespace Midway_Assessment.ClassProperties
     {
         ClassProperties.Equipment objEquip;
         int id;
-        DateTime workDateTime;
+        DateTime workDate;
+        string workTime;
         int timeTaken;
         string description;
 
@@ -17,7 +18,8 @@ namespace Midway_Assessment.ClassProperties
         {
             objEquip = new Equipment();
             id = -1;
-            workDateTime = DateTime.Now;
+            workDate = DateTime.Now;
+            workTime = "00:00";
             timeTaken = 0;
             description = string.Empty;
         }
@@ -44,15 +46,26 @@ namespace Midway_Assessment.ClassProperties
                 this.id = value;
             }
         }
-        public DateTime WorkDateTime
+        public DateTime WorkDate
         {
             get
             {
-                return this.workDateTime;
+                return this.workDate;
             }
             set
             {
-                this.workDateTime = value;
+                this.workDate = value;
+            }
+        }
+        public string WorkTime
+        {
+            get
+            {
+                return this.workTime;
+            }
+            set
+            {
+                this.workTime = value;
             }
         }
         public int TimeTaken

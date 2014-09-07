@@ -14,10 +14,10 @@ namespace Midway_Assessment.BusinessLogicLayer
         string EquipmentMaintenaceFilePath = string.Empty;
         string EquipmentFilePath = string.Empty;
 
-        public EquipmentMaintenanceBL(string equipMaintenaceFilePath)
-        {
-            EquipmentMaintenaceFilePath = equipMaintenaceFilePath;
-        }
+        //public EquipmentMaintenanceBL(string equipMaintenaceFilePath)
+        //{
+        //    EquipmentMaintenaceFilePath = equipMaintenaceFilePath;
+        //}
         public EquipmentMaintenanceBL(string equipMaintenaceFilePath, string equipmentFilePath)
         {
             EquipmentMaintenaceFilePath = equipMaintenaceFilePath;
@@ -35,8 +35,8 @@ namespace Midway_Assessment.BusinessLogicLayer
         {
             EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
 
-            string data = (GetMaxID() + 1).ToString() + "," + objEquipMaintenance.WorkDateTime.Date.ToString("dd/MM/yyyy") +","+
-                           objEquipMaintenance.WorkDateTime.Date.ToString("HH:mm")+","+objEquipMaintenance.Description+","+objEquipMaintenance.ObjEquip.ID.ToString()+"," +objEquipMaintenance.TimeTaken.ToString();
+            string data = (GetMaxID() + 1).ToString() + "," + objEquipMaintenance.WorkDate.Date.ToString("dd/MM/yyyy") +","+
+                           objEquipMaintenance.WorkTime+","+objEquipMaintenance.Description+","+objEquipMaintenance.ObjEquip.ID.ToString()+"," +objEquipMaintenance.TimeTaken.ToString();
             return objEquipMaintenanceDB.Add(EquipmentMaintenaceFilePath, data);
 
         }
@@ -74,7 +74,7 @@ namespace Midway_Assessment.BusinessLogicLayer
                 { }
                 else
                 {
-                    line = row[0].ToString() + "," + row[1].ToString();
+                    line = row[0].ToString() + "," + row[1].ToString() + "," + row[2].ToString() + "," + row[3].ToString() + "," + row[4].ToString() + "," + row[5].ToString();
                     lines.Add(line);
                 }
             }
@@ -99,12 +99,12 @@ namespace Midway_Assessment.BusinessLogicLayer
             {
                 if (int.Parse(row[0].ToString()) == objEquipMaintenance.ID)
                 {
-                    line = row[0].ToString() + "," + objEquipMaintenance.WorkDateTime.Date.ToString("dd/MM/yyyy") +","+
-                           objEquipMaintenance.WorkDateTime.Date.ToString("HH:mm")+","+objEquipMaintenance.Description+","+objEquipMaintenance.ObjEquip.ID.ToString()+"," +objEquipMaintenance.TimeTaken.ToString();
+                    line = row[0].ToString() + "," + objEquipMaintenance.WorkDate.Date.ToString("dd/MM/yyyy") +","+
+                           objEquipMaintenance.WorkTime+","+objEquipMaintenance.Description+","+objEquipMaintenance.ObjEquip.ID.ToString()+"," +objEquipMaintenance.TimeTaken.ToString();
                 }
                 else
                 {
-                    line = row[0].ToString() + "," + row[1].ToString();
+                    line = row[0].ToString() + "," + row[1].ToString() + "," + row[2].ToString() + "," + row[3].ToString() + "," + row[4].ToString() + "," + row[5].ToString() ;
                 }
                 lines.Add(line);
             }
@@ -127,7 +127,9 @@ namespace Midway_Assessment.BusinessLogicLayer
             {
                 DataRow newRow = rowColl[0];
                 objEquipMaintenance.ID = int.Parse(newRow[0].ToString());
-                objEquipMaintenance.WorkDateTime =DateTime.ParseExact( newRow[1].ToString()+" "+newRow[2].ToString(), "dd/MM/yyyy HH:mm", null);
+                objEquipMaintenance.WorkDate =DateTime.ParseExact( newRow[1].ToString(), "dd/MM/yyyy", null);
+                objEquipMaintenance.WorkTime =newRow[2].ToString().Trim();
+
                 objEquipMaintenance.Description = newRow[3].ToString();
                 objEquipMaintenance.ObjEquip.ID = int.Parse(newRow[4].ToString());
                 objEquipMaintenance.TimeTaken = int.Parse(newRow[5].ToString());
@@ -188,7 +190,7 @@ namespace Midway_Assessment.BusinessLogicLayer
                             drEquipmentMaintenance[arrayFirstRow[4]] = arrayNextRow[4].Trim('\r').Trim();
                             drEquipmentMaintenance[arrayFirstRow[5]] = arrayNextRow[5].Trim('\r').Trim();
 
-                           selectedRow = dtEquipmentData.Select("EquipmentId = " + arrayNextRow[5].Trim('\r').Trim());
+                           selectedRow = dtEquipmentData.Select("EquipmentId = " + arrayNextRow[4].Trim('\r').Trim());
                            if (selectedRow.Length > 0)
                            {
                                drEquipmentMaintenance["name"] = selectedRow[0][1].ToString().Trim('\r').Trim();

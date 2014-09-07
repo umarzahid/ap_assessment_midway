@@ -15,12 +15,13 @@ namespace Midway_Assessment.WebPages
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            equipmentFilePath = Request.MapPath(@"~\Database\Equipment.csv");
+                    
             if (!IsPostBack)
             {
                 try
                 {
 
-                    equipmentFilePath = Request.MapPath(@"~\Database\Equipment.csv");
                     BindGrid();
 
                 }

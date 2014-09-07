@@ -10,7 +10,7 @@
     <link  rel="stylesheet" href="../Style/jquery-ui.css" />
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css" />
+    <%--<link rel="stylesheet" href="/resources/demos/style.css" />--%>
 <script>
       $(function () {
           $("[id$=txtDate]").datepicker({
@@ -20,6 +20,12 @@
          
           });
       });
+      function ConfirmDelete() {
+          if (confirm("Are you sure you want to delete the record?")) {
+              return true;
+          }
+          return false;
+      }
   </script>
    
     <style type="text/css">
@@ -42,8 +48,10 @@
             <tr>
                 <td class="auto-style1"></td>
                 <td class="auto-style1">
-                    <asp:CustomValidator ID="UpdateDelete" runat="server" CssClass="validator-style" ErrorMessage="Error Message" ForeColor="Red" OnServerValidate="UpdateDelete_ServerValidate" Display="Dynamic" ValidationGroup="UD">Error Message</asp:CustomValidator>
-                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="validator-style" ForeColor="Red" ValidationGroup="Add" />
+                    <asp:CustomValidator ID="Update" runat="server" CssClass="validator-style" ErrorMessage="Error Message" ForeColor="Red" OnServerValidate="Update_ServerValidate" Display="Dynamic" ValidationGroup="Update">Error Message</asp:CustomValidator>
+                    <asp:CustomValidator ID="Delete" runat="server" CssClass="validator-style" ErrorMessage="Error Message" ForeColor="Red" OnServerValidate="Delete_ServerValidate" Display="Dynamic" ValidationGroup="Delete">Error Message</asp:CustomValidator>
+                    <asp:ValidationSummary ID="ValidationSummary_Add" runat="server" CssClass="validator-style" ForeColor="Red" ValidationGroup="Add" />
+                    <asp:ValidationSummary ID="ValidationSummary_Update" runat="server" CssClass="validator-style" ForeColor="Red" ValidationGroup="Update" />
                     </td>
                 <td class="auto-style1"></td>
             </tr>
@@ -58,7 +66,8 @@
                   
                 </td>
                 <td class="auto-style5">
-                    <asp:RequiredFieldValidator ID="EquipmentValidator" runat="server" ControlToValidate="cmbEquipment" ErrorMessage="Equipment is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Add" InitialValue="-1">*</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="EquipmentValidator_Add" runat="server" ControlToValidate="cmbEquipment" ErrorMessage="Equipment is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Add" InitialValue="-1">*</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="EquipmentValidator_Update" runat="server" ControlToValidate="cmbEquipment" ErrorMessage="Equipment is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Update" InitialValue="-1">*</asp:RequiredFieldValidator>
                     </td>
             </tr>
             <tr>
@@ -70,7 +79,8 @@
  <asp:TextBox ID="txtDate" runat="server" CssClass="textbox-style" Width="270px" Height="26px"></asp:TextBox>
                     &nbsp;</td>
                 <td class="auto-style5">
-                    <asp:RequiredFieldValidator ID="DateValidator" runat="server" ControlToValidate="txtDate" ErrorMessage="Date is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Add">*</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="DateValidator_Add" runat="server" ControlToValidate="txtDate" ErrorMessage="Date is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Add">*</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="DateValidator_Update" runat="server" ControlToValidate="txtDate" ErrorMessage="Date is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Update">*</asp:RequiredFieldValidator>
                     </td>
             </tr>
             <tr>
@@ -174,8 +184,10 @@
                   
                 </td>
                 <td class="auto-style5">
-                    <asp:RequiredFieldValidator ID="HourValidator" runat="server" ControlToValidate="cmbHour" ErrorMessage="Hour part is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Add" InitialValue="-1">*</asp:RequiredFieldValidator>
-                    <asp:RequiredFieldValidator ID="MinuteValidator" runat="server" ControlToValidate="cmbMinutes" ErrorMessage="Minute part is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Add" InitialValue="-1">*</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="HourValidator_Add" runat="server" ControlToValidate="cmbHour" ErrorMessage="Hour part is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Add" InitialValue="-1">*</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="MinuteValidator_Add" runat="server" ControlToValidate="cmbHour" ErrorMessage="Minute part is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Add" InitialValue="-1">*</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="MinuteValidator_Update" runat="server" ControlToValidate="cmbHour" ErrorMessage="Minute part is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Update" InitialValue="-1">*</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="HourValidator_Update" runat="server" ControlToValidate="cmbHour" ErrorMessage="Hour part is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Update" InitialValue="-1">*</asp:RequiredFieldValidator>
                     </td>
             </tr>
             <tr>
@@ -187,7 +199,8 @@
  <asp:TextBox ID="txtTimeTaken" runat="server" CssClass="textbox-style" Width="309px" Height="26px"></asp:TextBox>
                 </td>
                 <td class="auto-style2">
-                    <asp:RegularExpressionValidator ID="TimeTakenValidator" runat="server" ControlToValidate="txtTimeTaken" ErrorMessage="Only numbers can be entered." ForeColor="Red" SetFocusOnError="True" ValidationExpression="[0-9]+" ValidationGroup="Add">*</asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="TimeTakenValidator_Add" runat="server" ControlToValidate="txtTimeTaken" ErrorMessage="Only numbers can be entered." ForeColor="Red" SetFocusOnError="True" ValidationExpression="[0-9]+" ValidationGroup="Add">*</asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="TimeTakenValidator_Update" runat="server" ControlToValidate="txtTimeTaken" ErrorMessage="Only numbers can be entered." ForeColor="Red" SetFocusOnError="True" ValidationExpression="[0-9]+" ValidationGroup="Update">*</asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr>
@@ -216,12 +229,14 @@
         </table>
     
     </div>
-        <asp:GridView ID="gvEquipmentMaintenance" RowStyle-Wrap="True" AutoGenerateColumns="False" DataKeyNames="EquipmentId" AllowPaging="True" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Left"  Width="100%" PageSize="15" OnPageIndexChanging="gvEquipMaintenance_PageIndexChanging" OnSelectedIndexChanged="gvEquipMaintenace_SelectedIndexChanged" AutoGenerateSelectButton="True">
-         <PagerStyle HorizontalAlign="Center" />
+        <asp:GridView ID="gvEquipmentMaintenance"  RowStyle-Wrap="True" AutoGenerateColumns="False" DataKeyNames="MaintenanceWorkId,EquipmentId" AllowPaging="True" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Left"  Width="100%" PageSize="15" OnPageIndexChanging="gvEquipMaintenance_PageIndexChanging" OnSelectedIndexChanged="gvEquipMaintenace_SelectedIndexChanged" AutoGenerateSelectButton="True">
+         <PagerStyle HorizontalAlign="Center"  />
+            <PagerSettings Mode="NextPreviousFirstLast" FirstPageText="First" NextPageText="Next" LastPageText="Last" PreviousPageText="Previous" />
                <AlternatingRowStyle BackColor="Gainsboro" />
             <Columns>
                 <asp:BoundField DataField="MaintenanceWorkId" Visible="False" />
-                <asp:BoundField AccessibleHeaderText="Name" DataField="EquipmentId" HeaderText="Name" SortExpression="name" />
+                <asp:BoundField DataField="EquipmentId" Visible="False" />
+                <asp:BoundField AccessibleHeaderText="Name" DataField="name" HeaderText="Name" SortExpression="name" />
                 <asp:BoundField AccessibleHeaderText="Work Date" DataField="Date" HeaderText="Work Date" SortExpression="name" />
                 <asp:BoundField AccessibleHeaderText="Work Time" DataField="Time" HeaderText="Work Time" SortExpression="name" />
                 <asp:BoundField AccessibleHeaderText="Time Taken (min)" DataField="TimeTaken" HeaderText="Time Taken(min)" SortExpression="name" />
@@ -229,6 +244,8 @@
          
             </Columns>
             <HeaderStyle BackColor="Brown" ForeColor="White" />
+            
+<RowStyle Wrap="True"></RowStyle>
             
         </asp:GridView>
         </form>

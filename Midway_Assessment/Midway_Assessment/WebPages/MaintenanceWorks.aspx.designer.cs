@@ -13,22 +13,40 @@ namespace Midway_Assessment.WebPages {
     public partial class MaintenanceWorks {
         
         /// <summary>
-        /// UpdateDelete control.
+        /// Update control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator UpdateDelete;
+        protected global::System.Web.UI.WebControls.CustomValidator Update;
         
         /// <summary>
-        /// ValidationSummary1 control.
+        /// Delete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
+        protected global::System.Web.UI.WebControls.CustomValidator Delete;
+        
+        /// <summary>
+        /// ValidationSummary_Add control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary_Add;
+        
+        /// <summary>
+        /// ValidationSummary_Update control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary_Update;
         
         /// <summary>
         /// lblEquipName control.
@@ -49,13 +67,22 @@ namespace Midway_Assessment.WebPages {
         protected global::System.Web.UI.WebControls.DropDownList cmbEquipment;
         
         /// <summary>
-        /// EquipmentValidator control.
+        /// EquipmentValidator_Add control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator EquipmentValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator EquipmentValidator_Add;
+        
+        /// <summary>
+        /// EquipmentValidator_Update control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator EquipmentValidator_Update;
         
         /// <summary>
         /// lblWorkDate control.
@@ -76,13 +103,22 @@ namespace Midway_Assessment.WebPages {
         protected global::System.Web.UI.WebControls.TextBox txtDate;
         
         /// <summary>
-        /// DateValidator control.
+        /// DateValidator_Add control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator DateValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator DateValidator_Add;
+        
+        /// <summary>
+        /// DateValidator_Update control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator DateValidator_Update;
         
         /// <summary>
         /// lblWorkTime control.
@@ -112,22 +148,40 @@ namespace Midway_Assessment.WebPages {
         protected global::System.Web.UI.WebControls.DropDownList cmbMinutes;
         
         /// <summary>
-        /// HourValidator control.
+        /// HourValidator_Add control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator HourValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator HourValidator_Add;
         
         /// <summary>
-        /// MinuteValidator control.
+        /// MinuteValidator_Add control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator MinuteValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator MinuteValidator_Add;
+        
+        /// <summary>
+        /// MinuteValidator_Update control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator MinuteValidator_Update;
+        
+        /// <summary>
+        /// HourValidator_Update control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator HourValidator_Update;
         
         /// <summary>
         /// lblTimeTaken control.
@@ -148,13 +202,22 @@ namespace Midway_Assessment.WebPages {
         protected global::System.Web.UI.WebControls.TextBox txtTimeTaken;
         
         /// <summary>
-        /// TimeTakenValidator control.
+        /// TimeTakenValidator_Add control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator TimeTakenValidator;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator TimeTakenValidator_Add;
+        
+        /// <summary>
+        /// TimeTakenValidator_Update control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator TimeTakenValidator_Update;
         
         /// <summary>
         /// lblTimeTaken0 control.

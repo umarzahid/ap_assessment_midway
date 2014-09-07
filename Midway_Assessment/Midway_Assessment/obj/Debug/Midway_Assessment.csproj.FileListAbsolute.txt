@@ -2,4 +2,3 @@ C:\Users\pcPareto\Documents\ap_assessment_midway\Midway_Assessment\Midway_Assess
 C:\Users\pcPareto\Documents\ap_assessment_midway\Midway_Assessment\Midway_Assessment\bin\Midway_Assessment.pdb
 C:\Users\pcPareto\Documents\ap_assessment_midway\Midway_Assessment\Midway_Assessment\obj\Debug\Midway_Assessment.dll
 C:\Users\pcPareto\Documents\ap_assessment_midway\Midway_Assessment\Midway_Assessment\obj\Debug\Midway_Assessment.pdb
-C:\Users\pcPareto\Documents\ap_assessment_midway\Midway_Assessment\Midway_Assessment\obj\Debug\Midway_Assessment.csprojResolveAssemblyReference.cache
