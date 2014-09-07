@@ -4,13 +4,13 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="utf-8">
   <title>Equipment Maintenance</title>
     <link  href="../Style/Site.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <%--<link  rel="stylesheet" href="http://localhost:57459/code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />--%>
+    <link  rel="stylesheet" href="../Style/jquery-ui.css" />
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
+  <link rel="stylesheet" href="/resources/demos/style.css" />
 <script>
       $(function () {
           $("[id$=txtDate]").datepicker({
@@ -26,6 +26,9 @@
         .auto-style1 {
             height: 22px;
         }
+        .auto-style2 {
+            height: 27px;
+        }
     </style>
    
 </head>
@@ -40,8 +43,8 @@
                 <td class="auto-style1"></td>
                 <td class="auto-style1">
                     <asp:CustomValidator ID="UpdateDelete" runat="server" CssClass="validator-style" ErrorMessage="Error Message" ForeColor="Red" OnServerValidate="UpdateDelete_ServerValidate" Display="Dynamic" ValidationGroup="UD">Error Message</asp:CustomValidator>
+                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="validator-style" ForeColor="Red" ValidationGroup="Add" />
                     </td>
-        &nbsp;</td>
                 <td class="auto-style1"></td>
             </tr>
             <tr>
@@ -50,12 +53,12 @@
                 </td>
                 <td class="auto-style7">
                   
-                    <asp:DropDownList CssClass="combobox-style" ID="cmbEquipment"  runat="server" Height="23px" Width="279px" >
+                    <asp:DropDownList CssClass="combobox-style" ID="cmbEquipment"  runat="server" Height="26px" Width="309px" >
                     </asp:DropDownList>
                   
                 </td>
                 <td class="auto-style5">
-                    <asp:CustomValidator ID="validatorAdd" runat="server" CssClass="validator-style" ErrorMessage="Error Message" ForeColor="Red" OnServerValidate="validatorEquipment_ServerValidate" Display="Dynamic" ValidationGroup="Add">Error Message</asp:CustomValidator>
+                    <asp:RequiredFieldValidator ID="EquipmentValidator" runat="server" ControlToValidate="cmbEquipment" ErrorMessage="Equipment is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Add" InitialValue="-1">*</asp:RequiredFieldValidator>
                     </td>
             </tr>
             <tr>
@@ -64,10 +67,10 @@
                 </td>
                 <td class="auto-style7">
                   
- <asp:TextBox ID="txtDate" runat="server" CssClass="textbox-style" ReadOnly = "true" Width="271px"></asp:TextBox>
-                </td>
+ <asp:TextBox ID="txtDate" runat="server" CssClass="textbox-style" Width="270px" Height="26px"></asp:TextBox>
+                    &nbsp;</td>
                 <td class="auto-style5">
-                    <asp:CustomValidator ID="validatorWorkDate" runat="server" CssClass="validator-style" ErrorMessage="Error Message" ForeColor="Red" OnServerValidate="validatorWorkDate_ServerValidate" Display="Dynamic" ValidationGroup="Add">Error Message</asp:CustomValidator>
+                    <asp:RequiredFieldValidator ID="DateValidator" runat="server" ControlToValidate="txtDate" ErrorMessage="Date is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Add">*</asp:RequiredFieldValidator>
                     </td>
             </tr>
             <tr>
@@ -76,7 +79,7 @@
                 </td>
                 <td >
                   
-                    <asp:DropDownList ID="cmbHour" CssClass="combobox-style" runat="server" >
+                    <asp:DropDownList ID="cmbHour" CssClass="combobox-style" runat="server" Height="26px" Width="154px" >
                         <asp:ListItem Value="-1" >Select Hour</asp:ListItem>
                         <asp:ListItem Value="00" >00</asp:ListItem>
                         <asp:ListItem>01</asp:ListItem>
@@ -104,7 +107,7 @@
                         <asp:ListItem>23</asp:ListItem>
                     </asp:DropDownList>
                   
-                &nbsp;<asp:DropDownList ID="cmbMinutes" CssClass="combobox-style" runat="server" >
+                &nbsp;<asp:DropDownList ID="cmbMinutes" CssClass="combobox-style" runat="server" Height="31px" Width="154px">
                         <asp:ListItem Value="-1">Select Minute</asp:ListItem>
                         <asp:ListItem Value="00">00</asp:ListItem>
                         <asp:ListItem>01</asp:ListItem>
@@ -171,19 +174,21 @@
                   
                 </td>
                 <td class="auto-style5">
-                    <asp:CustomValidator ID="validatorWorkTime" runat="server" CssClass="validator-style" ErrorMessage="Error Message" ForeColor="Red" OnServerValidate="validatorWorkTime_ServerValidate" Display="Dynamic" ValidationGroup="Add">Error Message</asp:CustomValidator>
+                    <asp:RequiredFieldValidator ID="HourValidator" runat="server" ControlToValidate="cmbHour" ErrorMessage="Hour part is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Add" InitialValue="-1">*</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="MinuteValidator" runat="server" ControlToValidate="cmbMinutes" ErrorMessage="Minute part is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="Add" InitialValue="-1">*</asp:RequiredFieldValidator>
                     </td>
             </tr>
             <tr>
-                <td class="auto-style4">
+                <td class="auto-style2">
                     <asp:Label ID="lblTimeTaken" CssClass="label-style" runat="server" Font-Bold="True" Font-Overline="False" Font-Strikeout="False">Time Taken(min) </asp:Label>
                 </td>
-                <td class="auto-style7">
+                <td class="auto-style2">
                   
- <asp:TextBox ID="txtTimeTaken" runat="server" CssClass="textbox-style" Width="274px"></asp:TextBox>
+ <asp:TextBox ID="txtTimeTaken" runat="server" CssClass="textbox-style" Width="309px" Height="26px"></asp:TextBox>
                 </td>
-                <td class="auto-style5">
-                    &nbsp;</td>
+                <td class="auto-style2">
+                    <asp:RegularExpressionValidator ID="TimeTakenValidator" runat="server" ControlToValidate="txtTimeTaken" ErrorMessage="Only numbers can be entered." ForeColor="Red" SetFocusOnError="True" ValidationExpression="[0-9]+" ValidationGroup="Add">*</asp:RegularExpressionValidator>
+                </td>
             </tr>
             <tr>
                 <td class="auto-style4">
@@ -191,7 +196,7 @@
                 </td>
                 <td class="auto-style7">
                   
-                    <asp:TextBox ID="txtDescription" runat="server" CssClass="textbox-style" Height="108px" TextMode="MultiLine" Width="271px"></asp:TextBox>
+                    <asp:TextBox ID="txtDescription" runat="server" CssClass="textbox-style" Height="108px" TextMode="MultiLine" Width="309px"></asp:TextBox>
                 </td>
                 <td class="auto-style5">
                     &nbsp;</td>

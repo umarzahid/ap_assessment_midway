@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Style\jquery-ui.css" />
     <Content Include="Style\Site.css" />
     <Content Include="Web.config" />
     <Content Include="WebPages\Equipment.aspx" />

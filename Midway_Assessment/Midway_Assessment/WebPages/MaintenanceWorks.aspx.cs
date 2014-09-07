@@ -20,11 +20,20 @@ namespace Midway_Assessment.WebPages
                 maintenanceWorksFilePath = Request.MapPath(@"~\Database\MaintenanceWorks.csv");
                 fillEquipmentCombo();
 
-                EquipmentMaintenanceBL objEquipmentMaintenance = new EquipmentMaintenanceBL(maintenanceWorksFilePath,Request.MapPath(@"~\Database\Equipment.csv"));
-
-                DataTable dtEquipmentMaintenace = objEquipmentMaintenance.SelectAllData();
+                BindGrid();
             }
             
+        }
+        /// <summary>
+        /// Bind grid with data from 'MaintenanceWork' file.
+        /// </summary>
+        private void BindGrid()
+        {
+            EquipmentMaintenanceBL objEquipmentMaintenance = new EquipmentMaintenanceBL(maintenanceWorksFilePath, Request.MapPath(@"~\Database\Equipment.csv"));
+
+            DataTable dtEquipmentMaintenace = objEquipmentMaintenance.SelectAllData();
+            gvEquipmentMaintenance.DataSource = dtEquipmentMaintenace;
+            gvEquipmentMaintenance.DataBind();
         }
         /// <summary>
         /// Populate list box with 'Select one' as an entry.
@@ -67,7 +76,14 @@ namespace Midway_Assessment.WebPages
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-
+            if (Page.IsValid)
+            {
+                lblEquipName.Text = "OK";
+            }
+            else
+            {
+                lblEquipName.Text = "Not OK";
+            }
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -87,7 +103,8 @@ namespace Midway_Assessment.WebPages
 
         protected void gvEquipMaintenance_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-
+            this.gvEquipmentMaintenance.PageIndex = e.NewPageIndex;
+            BindGrid();
         }
 
         protected void gvEquipMaintenace_SelectedIndexChanged(object sender, EventArgs e)
@@ -102,17 +119,36 @@ namespace Midway_Assessment.WebPages
 
         protected void validatorEquipment_ServerValidate(object source, ServerValidateEventArgs args)
         {
-
+         
         }
 
-        protected void validatorWorkDate_ServerValidate(object source, ServerValidateEventArgs args)
+        protected void EquipmentValidator_ServerValidate(object source, ServerValidateEventArgs args)
         {
-
+            if (cmbEquipment.SelectedIndex > 0)
+            {
+                args.IsValid = true;
+            }
+            else
+            {
+                args.IsValid = false;
+            }
         }
 
-        protected void validatorWorkTime_ServerValidate(object source, ServerValidateEventArgs args)
+        protected void HourValidator_ServerValidate(object source, ServerValidateEventArgs args)
         {
+            if (this.cmbHour.SelectedIndex > 0)
+            {
+                args.IsValid = true;
+            }
+            else
+            {
+                args.IsValid = false;
+            }
+        }
 
+        protected void txtDate_TextChanged(object sender, EventArgs e)
+        {
+            ;
         }
     }
 }

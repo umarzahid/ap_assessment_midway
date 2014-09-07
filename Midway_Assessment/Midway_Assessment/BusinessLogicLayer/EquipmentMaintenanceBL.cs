@@ -168,7 +168,7 @@ namespace Midway_Assessment.BusinessLogicLayer
                     dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[3].Trim('\r').Trim());
                     dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[4].Trim('\r').Trim());
                     dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[5].Trim('\r').Trim());
-                    dtEquipmentMaintenanceData.Columns.Add("equipmentName");
+                    dtEquipmentMaintenanceData.Columns.Add("name");
                     
                     EquipmentBL objEquipBL = new EquipmentBL(EquipmentFilePath);
                     DataTable dtEquipmentData = objEquipBL.SelectAllData();
@@ -191,7 +191,7 @@ namespace Midway_Assessment.BusinessLogicLayer
                            selectedRow = dtEquipmentData.Select("EquipmentId = " + arrayNextRow[5].Trim('\r').Trim());
                            if (selectedRow.Length > 0)
                            {
-                               drEquipmentMaintenance["equipmentName"] = selectedRow[0][1].ToString().Trim('\r').Trim();
+                               drEquipmentMaintenance["name"] = selectedRow[0][1].ToString().Trim('\r').Trim();
                            }
 
                             dtEquipmentMaintenanceData.Rows.Add(drEquipmentMaintenance);
