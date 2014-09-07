@@ -29,7 +29,7 @@ namespace Midway_Assessment.WebPages
         private void BindGrid()
         {
             EquipmentBL objEquipBL = new EquipmentBL(equipmentFilePath);
-            gvEquipment.DataSource = objEquipBL.ReadAllData();
+            gvEquipment.DataSource = objEquipBL.SelectAllData();
             gvEquipment.DataBind();
         }
 

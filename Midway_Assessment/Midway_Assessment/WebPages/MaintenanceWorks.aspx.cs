@@ -1,6 +1,7 @@
 ﻿using Midway_Assessment.BusinessLogicLayer;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,17 +15,35 @@ namespace Midway_Assessment.WebPages
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             maintenanceWorksFilePath = Request.MapPath(@"~\Database\MaintenanceWorks.csv");
+            fillEquipmentCombo();
         }
         void fillEquipmentCombo()
         {
             try
             {
-                EquipmentMaintenanceBL objEquipmentMaintenance = new EquipmentMaintenanceBL(maintenanceWorksFilePath);
+                EquipmentBL objEquipBL = new EquipmentBL(Request.MapPath(@"~\Database\Equipment.csv"));
+                DataTable dtEquipData = objEquipBL.SelectAllData();
+
+                DataTable dtTemp = dtEquipData.Copy();
+                dtTemp.Clear();
+                DataRow dRow = dtTemp.NewRow();
+                dRow[0] = -1;
+                dRow[1] = "Please select";
+
+                dtTemp.Rows.Add(dRow);
+                dtTemp.Merge(dtEquipData);
+
+                cmbEquipment.DataSource = dtTemp;
+                cmbEquipment.DataTextField = "Name";
+                cmbEquipment.DataValueField = "EquipmentId";
+                cmbEquipment.DataBind();
+
             }
             catch (Exception ex)
-            { 
-            
+            {
+                throwException(ex.Message);
             }
         }
         void throwException(string exception)

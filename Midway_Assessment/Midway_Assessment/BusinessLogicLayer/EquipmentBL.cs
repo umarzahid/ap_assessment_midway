@@ -18,7 +18,7 @@ namespace Midway_Assessment.BusinessLogicLayer
             FilePath = filePath;
         }
 
-        public DataTable ReadAllData()
+        public DataTable SelectAllData()
         {
             EquipmentDB objEquipDB = new EquipmentDB();
             return GetInTable( objEquipDB.ReadAll(FilePath));
