@@ -1,0 +1,31 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MidwayAssessment.master.cs" Inherits="Midway_Assessment.MidwayAssessment" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+           <link  href="../Style/Site.css" rel="stylesheet" type="text/css" />
+
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+
+        <div class="header">
+            <h1>Assessment</h1></div>
+        <div class="navigation-area">
+            <ul id="navigation-list">
+                <li class="navigation-items"><a class="navigation-link" href="Index.aspx">Home</a></li>
+                <li class="navigation-items"><a class="navigation-link" href="Equipment.aspx">Equipment</a></li>
+                <li class="navigation-items"><a class="navigation-link" href="MaintenanceWorks.aspx">Maintenance Works</a></li>
+            </ul>
+        </div>
+    <div class="content">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    
+</body>
+</html>

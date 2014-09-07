@@ -1,10 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MaintenanceWorks.aspx.cs" Inherits="Midway_Assessment.WebPages.MaintenanceWorks" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MaintenanceWorks.aspx.cs" Inherits="Midway_Assessment.WebPages.MaintenanceWorks" MasterPageFile="~/MidwayAssessment.Master" Title="Maintenance Works" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>Equipment Maintenance</title>
     <link  href="../Style/Site.css" rel="stylesheet" type="text/css" />
     <%--<link  rel="stylesheet" href="http://localhost:57459/code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />--%>
     <link  rel="stylesheet" href="../Style/jquery-ui.css" />
@@ -37,10 +34,9 @@
         }
     </style>
    
-</head>
-<body>
- 
-     <h1>Equipment Maintenance</h1>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+     <h2>Equipment Maintenance</h2>
     <form runat="server">
         <div>
     
@@ -249,5 +245,4 @@
             
         </asp:GridView>
         </form>
-</body>
-</html>
+</asp:Content>

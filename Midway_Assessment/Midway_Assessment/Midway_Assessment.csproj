@@ -72,6 +72,13 @@
     <Compile Include="ClassProperties\EquipmentMaintenance.cs" />
     <Compile Include="DataAccessLayer\EquipmentDB.cs" />
     <Compile Include="DataAccessLayer\EquipmentMaintenanceDB.cs" />
+    <Compile Include="MidwayAssessment.Master.cs">
+      <DependentUpon>MidwayAssessment.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MidwayAssessment.Master.designer.cs">
+      <DependentUpon>MidwayAssessment.Master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UICommonFunctions\AckMessage.cs" />
     <Compile Include="WebPages\Equipment.aspx.cs">
@@ -106,6 +113,7 @@
   <ItemGroup>
     <Content Include="Database\Equipment.csv" />
     <Content Include="Database\MaintenanceWorks.csv" />
+    <Content Include="MidwayAssessment.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

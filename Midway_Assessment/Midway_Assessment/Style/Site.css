@@ -1,6 +1,13 @@
 ﻿body {
     font-family :Verdana;
 }
+#home-summary {
+    font-size:14px;
+    margin-left:10px;
+}
+h1,h2 {
+    text-align:center;
+}
 .textbox-style {
   font: 14px verdana;
   
@@ -13,9 +20,6 @@
 .combobox-style  {
      font-size:14px;
           
-}
-h1 {
-    text-align:center;
 }
 .validator-style {
     text-align:left;
@@ -76,3 +80,31 @@ h1 {
 	top:1px;
 }
 /* This button was generated using CSSButtonGenerator.com */
+
+#navigation-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.navigation-items {
+    float: left;
+}
+
+a.navigation-link:link , a.navigation-link:visited {
+    display: block;
+    width: 210px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #98bf21;
+    text-align: center;
+    padding: 4px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+a.navigation-link:hover, a.navigation-link:active {
+    background-color: #7A991A;
+}
+/* The style for navigation menu is copied from w3school.  */

@@ -1,9 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Equipment.aspx.cs" Inherits="Midway_Assessment.WebPages.Equipment" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Equipment.aspx.cs" Inherits="Midway_Assessment.WebPages.Equipment" Title="Equipment" MasterPageFile="~/MidwayAssessment.Master" %>
 
-<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
      <script type="text/javascript">
          function ConfirmDelete() {
              if (confirm("Are you sure you want to delete the record?")) {
@@ -13,40 +12,9 @@
          }
  </script>
     <link  href="../Style/Site.css" rel="stylesheet" type="text/css" />
-    <title></title>
-    <style type="text/css">
-        /*.auto-style1 {
-            height: 23px;
-        }
-        .auto-style2 {
-            height: 23px;
-            width: 132px;
-        }
-        .auto-style3 {
-            width: 132px;
-        }
-        .auto-style4 {
-            width: 132px;
-            height: 42px;
-        }
-        .auto-style5 {
-            height: 42px;
-        }
-        .auto-style6 {
-            height: 23px;
-            width: 346px;
-        }
-        .auto-style7 {
-            height: 42px;
-            width: 346px;
-        }
-        .auto-style8 {
-            width: 346px;
-        }*/
-    </style>
-</head>
-<body>
-    <h1>Equipment</h1>
+    </asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <h2>Equipment</h2>
     <form id="form1" runat="server">
     <div>
     
@@ -95,5 +63,5 @@
             
         </asp:GridView>
     </form>
-</body>
-</html>
+</asp:Content>
+    
