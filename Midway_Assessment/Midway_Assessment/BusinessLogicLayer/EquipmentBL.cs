@@ -21,7 +21,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         public DataTable SelectAllData()
         {
             EquipmentDB objEquipDB = new EquipmentDB();
-            return GetInTable( objEquipDB.ReadAll(FilePath));
+            return OrganiseInTable( objEquipDB.ReadAll(FilePath));
         }
 
         public bool AddRecord(Equipment objEquip)
@@ -55,7 +55,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         private ArrayList Delete(int id)
         {
             EquipmentDB objEquipDB = new EquipmentDB();
-            DataTable dtData = GetInTable(objEquipDB.ReadAll(FilePath));
+            DataTable dtData = OrganiseInTable(objEquipDB.ReadAll(FilePath));
 
             string line = string.Empty;
             ArrayList lines = new ArrayList();
@@ -82,7 +82,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         private ArrayList Edit( Equipment objEquip)
         {
              EquipmentDB objEquipDB = new EquipmentDB();
-            DataTable dtData = GetInTable(objEquipDB.ReadAll(FilePath));
+            DataTable dtData = OrganiseInTable(objEquipDB.ReadAll(FilePath));
 
             string line = string.Empty;
             ArrayList lines = new ArrayList();
@@ -111,7 +111,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         {
             EquipmentDB objEquipDB = new EquipmentDB();
             Equipment objEquip = new Equipment();
-            DataTable dtData = GetInTable(objEquipDB.ReadAll(FilePath));
+            DataTable dtData = OrganiseInTable(objEquipDB.ReadAll(FilePath));
 
             DataRow[] rowColl = dtData.Select("name = '"+name+"'");
             if (rowColl.Length > 0)
@@ -130,7 +130,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// </summary>
         /// <param name="inputData"></param>
         /// <returns></returns>
-       public DataTable GetInTable(string inputData)
+       public DataTable OrganiseInTable(string inputData)
         {
            
             string[] arrayInputData = inputData.Split('\n');
@@ -221,7 +221,7 @@ namespace Midway_Assessment.BusinessLogicLayer
        public int GetMaxID()
        {
            EquipmentDB objEquipDB = new EquipmentDB();
-           DataTable dtEquipData = GetInTable(objEquipDB.ReadAll(FilePath));
+           DataTable dtEquipData = OrganiseInTable(objEquipDB.ReadAll(FilePath));
 
            int maxID = 0;
            int.TryParse(dtEquipData.Compute("Max(EquipmentId)", "").ToString(),out maxID);

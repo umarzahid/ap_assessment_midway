@@ -22,6 +22,12 @@
       });
   </script>
    
+    <style type="text/css">
+        .auto-style1 {
+            height: 22px;
+        }
+    </style>
+   
 </head>
 <body>
  
@@ -31,11 +37,12 @@
     
         <table >
             <tr>
-                <td class="auto-style2">&nbsp;</td>
-                <td class="auto-style6">
-                    &nbsp;</td>
+                <td class="auto-style1"></td>
+                <td class="auto-style1">
+                    <asp:CustomValidator ID="UpdateDelete" runat="server" CssClass="validator-style" ErrorMessage="Error Message" ForeColor="Red" OnServerValidate="UpdateDelete_ServerValidate" Display="Dynamic" ValidationGroup="UD">Error Message</asp:CustomValidator>
+                    </td>
         &nbsp;</td>
-                <td class="auto-style1">&nbsp;</td>
+                <td class="auto-style1"></td>
             </tr>
             <tr>
                 <td class="auto-style4">
@@ -43,12 +50,13 @@
                 </td>
                 <td class="auto-style7">
                   
-                    <asp:DropDownList CssClass="combobox-style" ID="cmbEquipment"  runat="server" >
+                    <asp:DropDownList CssClass="combobox-style" ID="cmbEquipment"  runat="server" Height="23px" Width="279px" >
                     </asp:DropDownList>
                   
                 </td>
                 <td class="auto-style5">
-                    &nbsp;</td>
+                    <asp:CustomValidator ID="validatorAdd" runat="server" CssClass="validator-style" ErrorMessage="Error Message" ForeColor="Red" OnServerValidate="validatorEquipment_ServerValidate" Display="Dynamic" ValidationGroup="Add">Error Message</asp:CustomValidator>
+                    </td>
             </tr>
             <tr>
                 <td class="auto-style4">
@@ -59,7 +67,8 @@
  <asp:TextBox ID="txtDate" runat="server" CssClass="textbox-style" ReadOnly = "true" Width="271px"></asp:TextBox>
                 </td>
                 <td class="auto-style5">
-                    &nbsp;</td>
+                    <asp:CustomValidator ID="validatorWorkDate" runat="server" CssClass="validator-style" ErrorMessage="Error Message" ForeColor="Red" OnServerValidate="validatorWorkDate_ServerValidate" Display="Dynamic" ValidationGroup="Add">Error Message</asp:CustomValidator>
+                    </td>
             </tr>
             <tr>
                 <td class="auto-style4">
@@ -162,7 +171,8 @@
                   
                 </td>
                 <td class="auto-style5">
-                    &nbsp;</td>
+                    <asp:CustomValidator ID="validatorWorkTime" runat="server" CssClass="validator-style" ErrorMessage="Error Message" ForeColor="Red" OnServerValidate="validatorWorkTime_ServerValidate" Display="Dynamic" ValidationGroup="Add">Error Message</asp:CustomValidator>
+                    </td>
             </tr>
             <tr>
                 <td class="auto-style4">
@@ -195,10 +205,27 @@
 &nbsp;</td>
                 <td>
                     &nbsp;</td>
+        &nbsp;</td>
+        &nbsp;</td>
             </tr>
         </table>
     
     </div>
+        <asp:GridView ID="gvEquipmentMaintenance" RowStyle-Wrap="True" AutoGenerateColumns="False" DataKeyNames="EquipmentId" AllowPaging="True" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Left"  Width="100%" PageSize="15" OnPageIndexChanging="gvEquipMaintenance_PageIndexChanging" OnSelectedIndexChanged="gvEquipMaintenace_SelectedIndexChanged" AutoGenerateSelectButton="True">
+         <PagerStyle HorizontalAlign="Center" />
+               <AlternatingRowStyle BackColor="Gainsboro" />
+            <Columns>
+                <asp:BoundField DataField="MaintenanceWorkId" Visible="False" />
+                <asp:BoundField AccessibleHeaderText="Name" DataField="EquipmentId" HeaderText="Name" SortExpression="name" />
+                <asp:BoundField AccessibleHeaderText="Work Date" DataField="Date" HeaderText="Work Date" SortExpression="name" />
+                <asp:BoundField AccessibleHeaderText="Work Time" DataField="Time" HeaderText="Work Time" SortExpression="name" />
+                <asp:BoundField AccessibleHeaderText="Time Taken (min)" DataField="TimeTaken" HeaderText="Time Taken(min)" SortExpression="name" />
+                   <asp:BoundField AccessibleHeaderText="Description" DataField="WorksDescription" HeaderText="Description" SortExpression="name" />
+         
+            </Columns>
+            <HeaderStyle BackColor="Brown" ForeColor="White" />
+            
+        </asp:GridView>
         </form>
 </body>
 </html>

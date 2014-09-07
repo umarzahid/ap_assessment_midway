@@ -31,7 +31,7 @@ namespace MidwayAssessmentTest.BusinessAccessLayer_Test
 
             string result = equipDB.ReadAll(filePath);
 
-            DataTable resultDB = equipMaintenanceBL.GetInTable(result);
+            DataTable resultDB = equipMaintenanceBL.OrganiseInTable(result);
             //Expected result will vary depending on number of records in the table.
             Assert.IsTrue(resultDB.Rows.Count>0,"First row represents column names. So it will be greater than 0.");
         }

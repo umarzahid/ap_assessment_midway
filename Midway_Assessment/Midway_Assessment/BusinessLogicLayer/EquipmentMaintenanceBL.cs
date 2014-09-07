@@ -11,17 +11,24 @@ namespace Midway_Assessment.BusinessLogicLayer
 {
     public class EquipmentMaintenanceBL
     {
-        string FilePath = string.Empty;
+        string EquipmentMaintenaceFilePath = string.Empty;
+        string EquipmentFilePath = string.Empty;
 
-        public EquipmentMaintenanceBL(string filePath)
+        public EquipmentMaintenanceBL(string equipMaintenaceFilePath)
         {
-            FilePath = filePath;
+            EquipmentMaintenaceFilePath = equipMaintenaceFilePath;
+        }
+        public EquipmentMaintenanceBL(string equipMaintenaceFilePath, string equipmentFilePath)
+        {
+            EquipmentMaintenaceFilePath = equipMaintenaceFilePath;
+            EquipmentFilePath = equipmentFilePath;
         }
 
-        public DataTable ReadAllData()
+
+        public DataTable SelectAllData()
         {
             EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
-            return GetInTable( objEquipMaintenanceDB.ReadAll(FilePath));
+            return OrganiseInTable( objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
         }
 
         public bool AddRecord(EquipmentMaintenance objEquipMaintenance)
@@ -30,21 +37,21 @@ namespace Midway_Assessment.BusinessLogicLayer
 
             string data = (GetMaxID() + 1).ToString() + "," + objEquipMaintenance.WorkDateTime.Date.ToString("dd/MM/yyyy") +","+
                            objEquipMaintenance.WorkDateTime.Date.ToString("HH:mm")+","+objEquipMaintenance.Description+","+objEquipMaintenance.ObjEquip.ID.ToString()+"," +objEquipMaintenance.TimeTaken.ToString();
-            return objEquipMaintenanceDB.Add(FilePath, data);
+            return objEquipMaintenanceDB.Add(EquipmentMaintenaceFilePath, data);
 
         }
         public bool UpdateRecord( EquipmentMaintenance objEquipMaintenance)
         {
             EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
             ArrayList lines = Edit( objEquipMaintenance); //This searches the targeted id and replaces name string.
-           return objEquipMaintenanceDB.Update(FilePath, lines);
+           return objEquipMaintenanceDB.Update(EquipmentMaintenaceFilePath, lines);
             
         }
         public bool DeleteRecord(int id)
         {
             EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
             ArrayList lines = Delete(id); //This searches the targeted id and deletes the record.
-            return objEquipMaintenanceDB.Update(FilePath, lines);
+            return objEquipMaintenanceDB.Update(EquipmentMaintenaceFilePath, lines);
             
         }
         /// <summary>
@@ -56,7 +63,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         private ArrayList Delete(int id)
         {
             EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
-            DataTable dtData = GetInTable(objEquipMaintenanceDB.ReadAll(FilePath));
+            DataTable dtData = OrganiseInTable(objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
 
             string line = string.Empty;
             ArrayList lines = new ArrayList();
@@ -83,7 +90,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         private ArrayList Edit( EquipmentMaintenance objEquipMaintenance)
         {
              EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
-            DataTable dtData = GetInTable(objEquipMaintenanceDB.ReadAll(FilePath));
+            DataTable dtData = OrganiseInTable(objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
 
             string line = string.Empty;
             ArrayList lines = new ArrayList();
@@ -113,7 +120,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         {
             EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
             EquipmentMaintenance objEquipMaintenance = new EquipmentMaintenance();
-            DataTable dtData = GetInTable(objEquipMaintenanceDB.ReadAll(FilePath));
+            DataTable dtData = OrganiseInTable(objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
 
             DataRow[] rowColl = dtData.Select("MaintenanceWorkId = " + equipMaintenanceID + "");
             if (rowColl.Length > 0)
@@ -136,7 +143,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// </summary>
         /// <param name="inputData"></param>
         /// <returns></returns>
-       public DataTable GetInTable(string inputData)
+       public DataTable OrganiseInTable(string inputData)
         {
            
             string[] arrayInputData = inputData.Split('\n');
@@ -161,7 +168,12 @@ namespace Midway_Assessment.BusinessLogicLayer
                     dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[3].Trim('\r').Trim());
                     dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[4].Trim('\r').Trim());
                     dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[5].Trim('\r').Trim());
+                    dtEquipmentMaintenanceData.Columns.Add("equipmentName");
                     
+                    EquipmentBL objEquipBL = new EquipmentBL(EquipmentFilePath);
+                    DataTable dtEquipmentData = objEquipBL.SelectAllData();
+                    DataRow[] selectedRow;
+
                     for (int index = 1; index < arrayInputData.Length; ++index)
                     {
                         arrayNextRow = null;
@@ -176,6 +188,11 @@ namespace Midway_Assessment.BusinessLogicLayer
                             drEquipmentMaintenance[arrayFirstRow[4]] = arrayNextRow[4].Trim('\r').Trim();
                             drEquipmentMaintenance[arrayFirstRow[5]] = arrayNextRow[5].Trim('\r').Trim();
 
+                           selectedRow = dtEquipmentData.Select("EquipmentId = " + arrayNextRow[5].Trim('\r').Trim());
+                           if (selectedRow.Length > 0)
+                           {
+                               drEquipmentMaintenance["equipmentName"] = selectedRow[0][1].ToString().Trim('\r').Trim();
+                           }
 
                             dtEquipmentMaintenanceData.Rows.Add(drEquipmentMaintenance);
                         }
@@ -240,7 +257,7 @@ namespace Midway_Assessment.BusinessLogicLayer
        public int GetMaxID()
        {
            EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
-           DataTable dtEquipData = GetInTable(objEquipMaintenanceDB.ReadAll(FilePath));
+           DataTable dtEquipData = OrganiseInTable(objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
 
            int maxID = 0;
            int.TryParse(dtEquipData.Compute("Max(MaintenanceWorkId)", "").ToString(), out maxID);

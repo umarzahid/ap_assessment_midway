@@ -15,10 +15,20 @@ namespace Midway_Assessment.WebPages
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                maintenanceWorksFilePath = Request.MapPath(@"~\Database\MaintenanceWorks.csv");
+                fillEquipmentCombo();
+
+                EquipmentMaintenanceBL objEquipmentMaintenance = new EquipmentMaintenanceBL(maintenanceWorksFilePath,Request.MapPath(@"~\Database\Equipment.csv"));
+
+                DataTable dtEquipmentMaintenace = objEquipmentMaintenance.SelectAllData();
+            }
             
-            maintenanceWorksFilePath = Request.MapPath(@"~\Database\MaintenanceWorks.csv");
-            fillEquipmentCombo();
         }
+        /// <summary>
+        /// Populate list box with 'Select one' as an entry.
+        /// </summary>
         void fillEquipmentCombo()
         {
             try
@@ -71,6 +81,36 @@ namespace Midway_Assessment.WebPages
         }
 
         protected void txtDescription_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void gvEquipMaintenance_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+
+        }
+
+        protected void gvEquipMaintenace_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void UpdateDelete_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+
+        }
+
+        protected void validatorEquipment_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+
+        }
+
+        protected void validatorWorkDate_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+
+        }
+
+        protected void validatorWorkTime_ServerValidate(object source, ServerValidateEventArgs args)
         {
 
         }

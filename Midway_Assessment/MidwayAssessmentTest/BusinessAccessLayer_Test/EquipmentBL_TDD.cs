@@ -37,7 +37,7 @@ namespace MidwayAssessmentTest
 
             string result = equipDB.ReadAll(filePath);
 
-            DataTable resultDB = equipBL.GetInTable(result);
+            DataTable resultDB = equipBL.OrganiseInTable(result);
             //Expected result will vary depending on number of records in the table.
             Assert.AreEqual(10, resultDB.Rows.Count);
         }

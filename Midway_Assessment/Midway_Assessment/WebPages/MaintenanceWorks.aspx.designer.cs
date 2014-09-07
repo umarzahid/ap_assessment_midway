@@ -13,6 +13,15 @@ namespace Midway_Assessment.WebPages {
     public partial class MaintenanceWorks {
         
         /// <summary>
+        /// UpdateDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator UpdateDelete;
+        
+        /// <summary>
         /// lblEquipName control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace Midway_Assessment.WebPages {
         protected global::System.Web.UI.WebControls.DropDownList cmbEquipment;
         
         /// <summary>
+        /// validatorAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator validatorAdd;
+        
+        /// <summary>
         /// lblWorkDate control.
         /// </summary>
         /// <remarks>
@@ -47,6 +65,15 @@ namespace Midway_Assessment.WebPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDate;
+        
+        /// <summary>
+        /// validatorWorkDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator validatorWorkDate;
         
         /// <summary>
         /// lblWorkTime control.
@@ -74,6 +101,15 @@ namespace Midway_Assessment.WebPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList cmbMinutes;
+        
+        /// <summary>
+        /// validatorWorkTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator validatorWorkTime;
         
         /// <summary>
         /// lblTimeTaken control.
@@ -137,5 +173,14 @@ namespace Midway_Assessment.WebPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDelete;
+        
+        /// <summary>
+        /// gvEquipmentMaintenance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvEquipmentMaintenance;
     }
 }
