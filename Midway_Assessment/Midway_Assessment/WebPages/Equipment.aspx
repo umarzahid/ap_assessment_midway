@@ -50,8 +50,9 @@
             </tr>
         </table>
     
+         
     </div>
-        <asp:GridView ID="gvEquipment" AutoGenerateColumns="False" DataKeyNames="EquipmentId" AllowPaging="True" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Left"  Width="100%" PageSize="15" OnPageIndexChanging="gvEquipment_PageIndexChanging" OnSelectedIndexChanged="gvEquipment_SelectedIndexChanged" AutoGenerateSelectButton="True">
+      <asp:GridView ID="gvEquipment" AutoGenerateColumns="False" DataKeyNames="EquipmentId" AllowPaging="True" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Left"  Width="100%" PageSize="15" OnPageIndexChanging="gvEquipment_PageIndexChanging" OnSelectedIndexChanged="gvEquipment_SelectedIndexChanged" AutoGenerateSelectButton="True">
          <PagerStyle HorizontalAlign="Center" />
                <AlternatingRowStyle BackColor="Gainsboro" />
             <Columns>
@@ -63,5 +64,6 @@
             
         </asp:GridView>
     </form>
+
 </asp:Content>
     

@@ -1,8 +1,20 @@
 ﻿body {
     font-family :Verdana;
 }
+
+#header {
+    height:auto;
+    background:#F0F0F0;
+    border:1px solid #CCC;
+    width:auto;
+    margin:5px auto;
+}
+#content {
+    background-color:white;
+    margin:10px;
+}
 #home-summary {
-    font-size:14px;
+    font-size:20px;
     margin-left:10px;
 }
 h1,h2 {
@@ -86,6 +98,8 @@ h1,h2 {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    
+  
 }
 
 .navigation-items {
@@ -95,6 +109,8 @@ h1,h2 {
 a.navigation-link:link , a.navigation-link:visited {
     display: block;
     width: 210px;
+    line-height:30px;
+    
     font-weight: bold;
     color: #FFFFFF;
     background-color: #98bf21;
