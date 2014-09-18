@@ -10,15 +10,15 @@ using System.Web.UI.WebControls;
 
 namespace Midway_Assessment.WebPages
 {
-    public partial class MaintenanceWorks : System.Web.UI.Page
+    public partial class MaintenanceWorks : Global
     {
-        string maintenanceWorksFilePath = string.Empty;
-        string equipmentFilePath = string.Empty;
+       // string maintenanceWorksFilePath = string.Empty;
+       // string equipmentFilePath = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            maintenanceWorksFilePath = Request.MapPath(@"~\Database\MaintenanceWorks.csv");
-            equipmentFilePath = Request.MapPath(@"~\Database\Equipment.csv");
+        //    maintenanceWorksFilePath = Request.MapPath(@"~\Database\MaintenanceWorks.csv");
+          //  equipmentFilePath = Request.MapPath(@"~\Database\Equipment.csv");
         
             if (!IsPostBack)
             {
@@ -33,7 +33,7 @@ namespace Midway_Assessment.WebPages
         /// </summary>
         private void BindGrid()
         {
-            EquipmentMaintenanceBL objEquipmentMaintenance = new EquipmentMaintenanceBL(maintenanceWorksFilePath, Request.MapPath(@"~\Database\Equipment.csv"));
+            EquipmentMaintenanceBL objEquipmentMaintenance = new EquipmentMaintenanceBL(EquipmentMaintenanceFilePath, EquipmentFilePath);
             try
             {
                 DataTable dtEquipmentMaintenace = objEquipmentMaintenance.SelectAllData();
@@ -90,7 +90,7 @@ namespace Midway_Assessment.WebPages
             {
                 try
                 {
-                    EquipmentMaintenanceBL objEquipMaintenanceBL = new EquipmentMaintenanceBL(maintenanceWorksFilePath, equipmentFilePath);
+                    EquipmentMaintenanceBL objEquipMaintenanceBL = new EquipmentMaintenanceBL(EquipmentMaintenanceFilePath, EquipmentFilePath);
                     AckMessage message = new AckMessage();
 
                     ClassProperties.EquipmentMaintenance objEquipMaintenance = getEquipmentMaintenanceObject();
@@ -148,7 +148,7 @@ namespace Midway_Assessment.WebPages
             {
                 try
                 {
-                    EquipmentMaintenanceBL objEquipMaintenanceBL = new EquipmentMaintenanceBL(maintenanceWorksFilePath, equipmentFilePath);
+                    EquipmentMaintenanceBL objEquipMaintenanceBL = new EquipmentMaintenanceBL(EquipmentMaintenanceFilePath, EquipmentFilePath);
                     AckMessage message = new AckMessage();
                     ClassProperties.EquipmentMaintenance objEquipMaintenance = getEquipmentMaintenanceObject();
                     objEquipMaintenance.ID = int.Parse(Session["MaintenanceWorkID"].ToString());
@@ -177,7 +177,7 @@ namespace Midway_Assessment.WebPages
                 try
                 {
 
-                    EquipmentMaintenanceBL objEquipMaintenanceBL = new EquipmentMaintenanceBL(maintenanceWorksFilePath, equipmentFilePath);
+                    EquipmentMaintenanceBL objEquipMaintenanceBL = new EquipmentMaintenanceBL(EquipmentMaintenanceFilePath, EquipmentFilePath);
                     AckMessage message = new AckMessage();
 
                     if (objEquipMaintenanceBL.DeleteRecord(int.Parse(Session["MaintenanceWorkID"].ToString())))

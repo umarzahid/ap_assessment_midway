@@ -9,14 +9,14 @@ using System.Web.UI.WebControls;
 
 namespace Midway_Assessment.WebPages
 {
-    public partial class Equipment : System.Web.UI.Page
+    public partial class Equipment : Global
     {
-        string equipmentFilePath = string.Empty;
+        //string equipmentFilePath = string.Empty;
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            equipmentFilePath = Request.MapPath(@"~\Database\Equipment.csv");
-                    
+         //   equipmentFilePath = Request.MapPath(@"~\Database\Equipment.csv");
+           
             if (!IsPostBack)
             {
                 try
@@ -34,7 +34,7 @@ namespace Midway_Assessment.WebPages
 
         private void BindGrid()
         {
-            EquipmentBL objEquipBL = new EquipmentBL(equipmentFilePath);
+            EquipmentBL objEquipBL = new EquipmentBL(EquipmentFilePath);
             gvEquipment.DataSource = objEquipBL.SelectAllData();
             gvEquipment.DataBind();
         }
@@ -53,7 +53,7 @@ namespace Midway_Assessment.WebPages
                     { 
                     
                     }
-                    EquipmentBL objEquipBL = new EquipmentBL(equipmentFilePath);
+                    EquipmentBL objEquipBL = new EquipmentBL(EquipmentFilePath);
                     AckMessage message = new AckMessage();
                     
                     if (objEquipBL.DeleteRecord(int.Parse(Session["EquipmentID"].ToString())))
@@ -89,7 +89,7 @@ namespace Midway_Assessment.WebPages
             {
                 try
                 {
-                    EquipmentBL objEquipBL = new EquipmentBL(equipmentFilePath);
+                    EquipmentBL objEquipBL = new EquipmentBL(EquipmentFilePath);
                     AckMessage message = new AckMessage();
 
                     ClassProperties.Equipment objEquip = getEquipmentObject();
@@ -153,7 +153,7 @@ namespace Midway_Assessment.WebPages
             {
                 try
                 {
-                    EquipmentBL objEquipBL = new EquipmentBL(equipmentFilePath);
+                    EquipmentBL objEquipBL = new EquipmentBL(EquipmentFilePath);
                     AckMessage message = new AckMessage();
                     ClassProperties.Equipment objEquip = getEquipmentObject();
                     objEquip.ID = int.Parse(Session["EquipmentID"].ToString());
@@ -179,7 +179,7 @@ namespace Midway_Assessment.WebPages
         {
             if (!string.IsNullOrEmpty(this.txtEquipName.Text.Trim()))
             {
-                EquipmentBL objEquipmentBL = new EquipmentBL(equipmentFilePath);
+                EquipmentBL objEquipmentBL = new EquipmentBL(EquipmentFilePath);
                 if (objEquipmentBL.AlreadyExists_NewRecord(txtEquipName.Text.Trim()))
                 {
 
@@ -203,7 +203,7 @@ namespace Midway_Assessment.WebPages
         {
             if (Session["EquipmentID"] != null)
             {
-                EquipmentBL objEquipmentBL = new EquipmentBL(equipmentFilePath);
+                EquipmentBL objEquipmentBL = new EquipmentBL(EquipmentFilePath);
                 int equipmentID = -1;
             
                 int.TryParse(Session["EquipmentID"].ToString(), out equipmentID);
