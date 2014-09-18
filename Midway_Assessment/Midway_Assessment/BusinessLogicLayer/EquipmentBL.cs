@@ -21,18 +21,17 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// Selects all data from the file
         /// </summary>
         /// <returns></returns>
-        public DataTable SelectAllData()
+        public List<Equipment> SelectAllData()
         {
             FileOperations objEquipDB = new FileOperations();
-            return OrganiseInTable( objEquipDB.ReadAll(FilePath));
+            return GetEquipmentColl( objEquipDB.ReadAll(FilePath));
         }
 
         public bool AddRecord(Equipment objEquip)
         {
             FileOperations objEquipDB = new FileOperations();
-
-            string data = (GetMaxID() + 1).ToString() + "," + objEquip.Name; //maintaining identity
-            return objEquipDB.Add(FilePath, data);
+         objEquip.ID = GetMaxID() + 1; // maintaining identity
+            return objEquipDB.Add(FilePath, objEquip.ToString());
 
         }
         public bool UpdateRecord( Equipment objEquip)
@@ -57,50 +56,39 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <returns></returns>
         private ArrayList Delete(int id)
         {
+            List<Equipment> objEquipColl = SelectAllData();
+            objEquipColl.RemoveAll(equip => equip.ID == id);
             FileOperations objEquipDB = new FileOperations();
-            DataTable dtData = OrganiseInTable(objEquipDB.ReadAll(FilePath));
-
-            string line = string.Empty;
             ArrayList lines = new ArrayList();
             lines.Add("EquipmentId,Name");
-            foreach (DataRow row in dtData.Rows)
+            foreach (Equipment equip in objEquipColl)
             {
-                if (int.Parse(row[0].ToString()) == id)
-                { }
-                else
-                {
-                    line = row[0].ToString() + "," + row[1].ToString();
-                    lines.Add(line);
-                }
+                    lines.Add(equip.ToString());
             }
             return lines;
         }
        
+
+
         /// <summary>
         /// Searches required string by ID and then replaces old value with new value.
         /// </summary>
         /// <param name="filePath"></param>
-        /// <param name="objEquip"></param>
+        /// <param name="objNewEquip"></param>
         /// <returns></returns>
-        private ArrayList Edit( Equipment objEquip)
+        private ArrayList Edit( Equipment objNewEquip)
         {
              FileOperations objEquipDB = new FileOperations();
-            DataTable dtData = OrganiseInTable(objEquipDB.ReadAll(FilePath));
-
-            string line = string.Empty;
+             List<Equipment> objEquipColl = SelectAllData();
             ArrayList lines = new ArrayList();
             lines.Add("EquipmentId,Name");
-            foreach (DataRow row in dtData.Rows)
+            foreach (Equipment equip in objEquipColl)
             {
-                if (int.Parse(row[0].ToString()) == objEquip.ID)
+                if (equip.ID == objNewEquip.ID)
                 {
-                    line = row[0].ToString() + "," + objEquip.Name;
+                    equip.Name = objNewEquip.Name;
                 }
-                else
-                {
-                    line = row[0].ToString() + "," + row[1].ToString();
-                }
-                lines.Add(line);
+                lines.Add(equip.ToString());
             }
             return lines;
         }
@@ -114,71 +102,65 @@ namespace Midway_Assessment.BusinessLogicLayer
         {
             FileOperations objEquipDB = new FileOperations();
             Equipment objEquip = new Equipment();
-            DataTable dtData = OrganiseInTable(objEquipDB.ReadAll(FilePath));
-
-            DataRow[] rowColl = dtData.Select("name = '"+name+"'");
-            if (rowColl.Length > 0)
-            {
-                DataRow newRow = rowColl[0];
-                objEquip.ID = int.Parse(newRow[0].ToString());
-                objEquip.Name = newRow[1].ToString();
-
-            }
-            return objEquip;
-
+            List<Equipment> objEquipColl = SelectAllData();
+            return objEquipColl.FirstOrDefault(equip => equip.Name == name);
+            
         }
 
         /// <summary>
-        /// Arranges the data into table format
+        /// Returns equipment.
+        /// </summary>
+        /// <param name="equipmentID"></param>
+        /// <param name="equipmentName"></param>
+        /// <returns></returns>
+       public Equipment GetEquipment(int equipmentID, string equipmentName)
+       {
+
+           Equipment objEquipment = new Equipment();
+           objEquipment.ID = equipmentID;
+           objEquipment.Name = equipmentName;
+           return objEquipment;
+       }
+        /// <summary>
+        /// Returns equipments in list of equipment.
         /// </summary>
         /// <param name="inputData"></param>
         /// <returns></returns>
-       public DataTable OrganiseInTable(string inputData)
-        {
-           
-            string[] arrayInputData = inputData.Split('\n');
+       public List<Equipment> GetEquipmentColl(string inputData)
+       {
 
-            DataTable dtEquipmentData = new DataTable();
-            if (arrayInputData.Length > 0)
-            {
-                string[] arrayFirstRow = arrayInputData[0].Split(',');
-                string[] arrayNextRow;
-                if (arrayFirstRow.Length == 2)
-                {
-                    arrayFirstRow[0] = arrayFirstRow[0].Trim();
-                    arrayFirstRow[1] = arrayFirstRow[1].Trim();
+           string[] arrayInputData = inputData.Split('\n');
+           List<Equipment> objEquipColl = new List<Equipment>();
 
-                    dtEquipmentData.Columns.Add(arrayFirstRow[0].Trim(), typeof(int));
-                    dtEquipmentData.Columns.Add(arrayFirstRow[1].Trim());
+           if (arrayInputData.Length > 0)
+           {
 
-                    for (int index = 1; index < arrayInputData.Length; ++index)
-                    {
-                        arrayNextRow = null;
-                        arrayNextRow = arrayInputData[index].Split(',');
-                        if (arrayNextRow.Length == 2)
-                        {
-                            DataRow drEquipment = dtEquipmentData.NewRow();
-                            drEquipment[arrayFirstRow[0]] = arrayNextRow[0].Trim('\r').Trim();
-                            drEquipment[arrayFirstRow[1]] = arrayNextRow[1].Trim('\r').Trim();
+               string[] arrayNextRow;
 
-                            dtEquipmentData.Rows.Add(drEquipment);
-                        }
+               for (int index = 1; index < arrayInputData.Length; ++index)
+               {
+                   arrayNextRow = null;
+                   arrayNextRow = arrayInputData[index].Split(',');
+                   if (arrayNextRow.Length == 2)
+                   {
+                       if (!string.IsNullOrEmpty(arrayNextRow[0].Trim()) && !string.IsNullOrEmpty(arrayNextRow[1].Trim()))
+                       {
+                           Equipment objEquip = GetEquipment(int.Parse(arrayNextRow[0].Trim()), arrayNextRow[1].Trim());
+                           objEquipColl.Add(objEquip);
+                       }
+                   }
 
-                    }
+               }
+               return objEquipColl;
 
-                    return dtEquipmentData;
-                }
-                else
-                {
-                    return dtEquipmentData;
-                }
-            }
-            else
-            {
-                return dtEquipmentData;
-            }
+           }
+           else
+           {
+               return objEquipColl;
+           }
 
-        }
+
+       }
         /// <summary>
        /// Checks if there is any duplication in the file for the given name of equipment during first time save process.
         /// </summary>
@@ -187,7 +169,8 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <returns></returns>
        public bool AlreadyExists_NewRecord(string name)
        {
-           if (Find(name).ID > 0)
+           Equipment objEquip = Find(name);
+           if ( objEquip !=null )
            {
                return true;
            }
@@ -207,7 +190,7 @@ namespace Midway_Assessment.BusinessLogicLayer
        public bool AlreadyExists_Update( string name, int id)
        {
            Equipment objEquipment = Find( name);
-           if (objEquipment.ID > 0)
+           if (objEquipment !=null)
            {
                if (objEquipment.ID == id)
                    return false;
@@ -220,16 +203,10 @@ namespace Midway_Assessment.BusinessLogicLayer
            }
        }
 
-
        public int GetMaxID()
        {
-           FileOperations objEquipDB = new FileOperations();
-           DataTable dtEquipData = OrganiseInTable(objEquipDB.ReadAll(FilePath));
-
-           int maxID = 0;
-           int.TryParse(dtEquipData.Compute("Max(EquipmentId)", "").ToString(),out maxID);
-
-           return maxID;
+           List<Equipment> objEquipColl = SelectAllData();
+           return objEquipColl.Max(r => r.ID);
        }
     }
 }

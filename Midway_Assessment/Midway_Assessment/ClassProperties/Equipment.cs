@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Midway_Assessment.ClassProperties
@@ -37,6 +38,15 @@ namespace Midway_Assessment.ClassProperties
             {
                 id = value;
             }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder objString = new StringBuilder();
+            objString.Append(id);
+            objString.Append(",");
+            objString.Append(name);
+            return objString.ToString();
         }
         
     }

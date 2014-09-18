@@ -169,7 +169,8 @@ namespace Midway_Assessment.BusinessLogicLayer
                     dtEquipmentMaintenanceData.Columns.Add("name");
                     
                     EquipmentBL objEquipBL = new EquipmentBL(EquipmentFilePath);
-                    DataTable dtEquipmentData = objEquipBL.SelectAllData();
+                    //DataTable dtEquipmentData = objEquipBL.SelectAllData();
+                    DataTable dtEquipmentData =new DataTable(); //Dummy data
                     DataRow[] selectedRow;
 
                     for (int index = 1; index < arrayInputData.Length; ++index)

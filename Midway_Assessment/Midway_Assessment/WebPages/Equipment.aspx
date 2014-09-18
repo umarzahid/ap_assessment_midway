@@ -52,11 +52,11 @@
     
          
     </div>
-      <asp:GridView ID="gvEquipment" AutoGenerateColumns="False" DataKeyNames="EquipmentId" AllowPaging="True" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Left"  Width="100%" PageSize="15" OnPageIndexChanging="gvEquipment_PageIndexChanging" OnSelectedIndexChanged="gvEquipment_SelectedIndexChanged" AutoGenerateSelectButton="True">
+      <asp:GridView ID="gvEquipment" AutoGenerateColumns="False" DataKeyNames="ID" AllowPaging="True" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Left"  Width="100%" PageSize="15" OnPageIndexChanging="gvEquipment_PageIndexChanging" OnSelectedIndexChanged="gvEquipment_SelectedIndexChanged" AutoGenerateSelectButton="True">
          <PagerStyle HorizontalAlign="Center" />
                <AlternatingRowStyle BackColor="Gainsboro" />
             <Columns>
-                <asp:BoundField DataField="EquipmentId" Visible="False" />
+                <asp:BoundField DataField="ID" Visible="False" />
                 <asp:BoundField AccessibleHeaderText="Name" DataField="name" HeaderText="Name" SortExpression="name" />
             
             </Columns>

@@ -52,21 +52,18 @@ namespace Midway_Assessment.WebPages
         {
             try
             {
-                EquipmentBL objEquipBL = new EquipmentBL(Request.MapPath(@"~\Database\Equipment.csv"));
-                DataTable dtEquipData = objEquipBL.SelectAllData();
+                EquipmentBL objEquipBL = new EquipmentBL(EquipmentFilePath);
+                List<ClassProperties.Equipment> objEquipColl = objEquipBL.SelectAllData();
 
-                DataTable dtTemp = dtEquipData.Copy();
-                dtTemp.Clear();
-                DataRow dRow = dtTemp.NewRow();
-                dRow[0] = -1;
-                dRow[1] = "Please select";
+                ClassProperties.Equipment objEquip = new ClassProperties.Equipment();
+                objEquip.ID =-1;
+                objEquip.Name = "Please Select";
 
-                dtTemp.Rows.Add(dRow);
-                dtTemp.Merge(dtEquipData);
+                objEquipColl.Insert(0, objEquip);
 
-                cmbEquipment.DataSource = dtTemp;
+                cmbEquipment.DataSource = objEquip;
                 cmbEquipment.DataTextField = "Name";
-                cmbEquipment.DataValueField = "EquipmentId";
+                cmbEquipment.DataValueField = "ID";
                 cmbEquipment.DataBind();
 
             }
