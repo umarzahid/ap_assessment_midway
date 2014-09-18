@@ -89,11 +89,10 @@
     <Compile Include="BusinessLogicLayer\EquipmentMaintenanceBL.cs" />
     <Compile Include="ClassProperties\Equipment.cs" />
     <Compile Include="ClassProperties\EquipmentMaintenance.cs" />
-    <Compile Include="DataAccessLayer\EquipmentDB.cs" />
-    <Compile Include="DataAccessLayer\EquipmentMaintenanceDB.cs" />
     <Compile Include="App_Data\Global.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="DataAccessLayer\FileOperations.cs" />
     <Compile Include="MidwayAssessment.Master.cs">
       <DependentUpon>MidwayAssessment.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

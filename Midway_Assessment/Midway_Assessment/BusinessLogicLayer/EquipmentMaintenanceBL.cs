@@ -14,10 +14,6 @@ namespace Midway_Assessment.BusinessLogicLayer
         string EquipmentMaintenaceFilePath = string.Empty;
         string EquipmentFilePath = string.Empty;
 
-        //public EquipmentMaintenanceBL(string equipMaintenaceFilePath)
-        //{
-        //    EquipmentMaintenaceFilePath = equipMaintenaceFilePath;
-        //}
         public EquipmentMaintenanceBL(string equipMaintenaceFilePath, string equipmentFilePath)
         {
             EquipmentMaintenaceFilePath = equipMaintenaceFilePath;
@@ -27,13 +23,13 @@ namespace Midway_Assessment.BusinessLogicLayer
 
         public DataTable SelectAllData()
         {
-            EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
+            FileOperations objEquipMaintenanceDB = new FileOperations();
             return OrganiseInTable( objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
         }
 
         public bool AddRecord(EquipmentMaintenance objEquipMaintenance)
         {
-            EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
+            FileOperations objEquipMaintenanceDB = new FileOperations();
 
             string data = (GetMaxID() + 1).ToString() + "," + objEquipMaintenance.WorkDate.Date.ToString("dd/MM/yyyy") +","+
                            objEquipMaintenance.WorkTime+","+objEquipMaintenance.Description+","+objEquipMaintenance.ObjEquip.ID.ToString()+"," +objEquipMaintenance.TimeTaken.ToString();
@@ -42,14 +38,14 @@ namespace Midway_Assessment.BusinessLogicLayer
         }
         public bool UpdateRecord( EquipmentMaintenance objEquipMaintenance)
         {
-            EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
+            FileOperations objEquipMaintenanceDB = new FileOperations();
             ArrayList lines = Edit( objEquipMaintenance); //This searches the targeted id and replaces name string.
            return objEquipMaintenanceDB.Update(EquipmentMaintenaceFilePath, lines);
             
         }
         public bool DeleteRecord(int id)
         {
-            EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
+            FileOperations objEquipMaintenanceDB = new FileOperations();
             ArrayList lines = Delete(id); //This searches the targeted id and deletes the record.
             return objEquipMaintenanceDB.Update(EquipmentMaintenaceFilePath, lines);
             
@@ -62,7 +58,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <returns></returns>
         private ArrayList Delete(int id)
         {
-            EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
+            FileOperations objEquipMaintenanceDB = new FileOperations();
             DataTable dtData = OrganiseInTable(objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
 
             string line = string.Empty;
@@ -89,7 +85,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <returns></returns>
         private ArrayList Edit( EquipmentMaintenance objEquipMaintenance)
         {
-             EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
+             FileOperations objEquipMaintenanceDB = new FileOperations();
             DataTable dtData = OrganiseInTable(objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
 
             string line = string.Empty;
@@ -118,7 +114,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <returns></returns>
         public EquipmentMaintenance Find(int equipMaintenanceID)
         {
-            EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
+            FileOperations objEquipMaintenanceDB = new FileOperations();
             EquipmentMaintenance objEquipMaintenance = new EquipmentMaintenance();
             DataTable dtData = OrganiseInTable(objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
 
@@ -214,51 +210,11 @@ namespace Midway_Assessment.BusinessLogicLayer
             }
 
         }
-       // /// <summary>
-       ///// Checks if there is any duplication in the file for the given name of EquipmentMaintenance during first time save process.
-       // /// </summary>
-       // /// <param name="filePath"></param>
-       // /// <param name="name"></param>
-       // /// <returns></returns>
-       //public bool AlreadyExists_NewRecord(string name)
-       //{
-       //    if (Find(name).ID > 0)
-       //    {
-       //        return true;
-       //    }
-       //    else
-       //    {
-       //        return false;
-       //    }
-       //}
-       // /// <summary>
-       // /// Checks if there is any duplication in the file for the given name of EquipmentMaintenance during update process.
-       // /// .
-       // /// </summary>
-       // /// <param name="filePath"></param>
-       // /// <param name="name"></param>
-       // /// <param name="id"></param>
-       // /// <returns></returns>
-       //public bool AlreadyExists_Update( string name, int id)
-       //{
-       //    EquipmentMaintenance objEquipMaintenancementMaintenance = Find( name);
-       //    if (objEquipMaintenancementMaintenance.ID > 0)
-       //    {
-       //        if (objEquipMaintenancementMaintenance.ID == id)
-       //            return false;
-       //        else
-       //            return true;
-       //    }
-       //    else
-       //    {
-       //        return false;
-       //    }
-       //}
 
 
        public int GetMaxID()
        {
-           EquipmentMaintenanceDB objEquipMaintenanceDB = new EquipmentMaintenanceDB();
+           FileOperations objEquipMaintenanceDB = new FileOperations();
            DataTable dtEquipData = OrganiseInTable(objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
 
            int maxID = 0;

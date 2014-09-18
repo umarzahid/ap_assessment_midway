@@ -17,16 +17,19 @@ namespace Midway_Assessment.BusinessLogicLayer
         {
             FilePath = filePath;
         }
-
+        /// <summary>
+        /// Selects all data from the file
+        /// </summary>
+        /// <returns></returns>
         public DataTable SelectAllData()
         {
-            EquipmentDB objEquipDB = new EquipmentDB();
+            FileOperations objEquipDB = new FileOperations();
             return OrganiseInTable( objEquipDB.ReadAll(FilePath));
         }
 
         public bool AddRecord(Equipment objEquip)
         {
-            EquipmentDB objEquipDB = new EquipmentDB();
+            FileOperations objEquipDB = new FileOperations();
 
             string data = (GetMaxID() + 1).ToString() + "," + objEquip.Name; //maintaining identity
             return objEquipDB.Add(FilePath, data);
@@ -34,14 +37,14 @@ namespace Midway_Assessment.BusinessLogicLayer
         }
         public bool UpdateRecord( Equipment objEquip)
         {
-            EquipmentDB objEquipDB = new EquipmentDB();
+            FileOperations objEquipDB = new FileOperations();
             ArrayList lines = Edit( objEquip); //This searches the targeted id and replaces name string.
            return objEquipDB.Update(FilePath, lines);
             
         }
         public bool DeleteRecord(int id)
         {
-            EquipmentDB objEquipDB = new EquipmentDB();
+            FileOperations objEquipDB = new FileOperations();
             ArrayList lines = Delete(id); //This searches the targeted id and deletes the record.
             return objEquipDB.Update(FilePath, lines);
             
@@ -54,7 +57,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <returns></returns>
         private ArrayList Delete(int id)
         {
-            EquipmentDB objEquipDB = new EquipmentDB();
+            FileOperations objEquipDB = new FileOperations();
             DataTable dtData = OrganiseInTable(objEquipDB.ReadAll(FilePath));
 
             string line = string.Empty;
@@ -81,7 +84,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <returns></returns>
         private ArrayList Edit( Equipment objEquip)
         {
-             EquipmentDB objEquipDB = new EquipmentDB();
+             FileOperations objEquipDB = new FileOperations();
             DataTable dtData = OrganiseInTable(objEquipDB.ReadAll(FilePath));
 
             string line = string.Empty;
@@ -109,7 +112,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <returns></returns>
         public Equipment Find(string name)
         {
-            EquipmentDB objEquipDB = new EquipmentDB();
+            FileOperations objEquipDB = new FileOperations();
             Equipment objEquip = new Equipment();
             DataTable dtData = OrganiseInTable(objEquipDB.ReadAll(FilePath));
 
@@ -220,7 +223,7 @@ namespace Midway_Assessment.BusinessLogicLayer
 
        public int GetMaxID()
        {
-           EquipmentDB objEquipDB = new EquipmentDB();
+           FileOperations objEquipDB = new FileOperations();
            DataTable dtEquipData = OrganiseInTable(objEquipDB.ReadAll(FilePath));
 
            int maxID = 0;
