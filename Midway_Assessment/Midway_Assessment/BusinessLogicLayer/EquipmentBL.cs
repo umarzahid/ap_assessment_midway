@@ -106,6 +106,21 @@ namespace Midway_Assessment.BusinessLogicLayer
             return objEquipColl.FirstOrDefault(equip => equip.Name == name);
             
         }
+        /// <summary>
+        /// Finds the record based on id of the equipment.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public Equipment Find(int id)
+        {
+            FileOperations objEquipDB = new FileOperations();
+            Equipment objEquip = new Equipment();
+            List<Equipment> objEquipColl = SelectAllData();
+            return objEquipColl.FirstOrDefault(equip => equip.ID == id);
+
+        }
+
 
         /// <summary>
         /// Returns equipment.

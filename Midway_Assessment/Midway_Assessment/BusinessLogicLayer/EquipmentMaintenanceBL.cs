@@ -21,10 +21,86 @@ namespace Midway_Assessment.BusinessLogicLayer
         }
 
 
-        public DataTable SelectAllData()
+        /// <summary>
+        /// Selects all data from the file
+        /// </summary>
+        /// <returns></returns>
+        public List<EquipmentMaintenance> SelectAllData()
         {
             FileOperations objEquipMaintenanceDB = new FileOperations();
-            return OrganiseInTable( objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
+            return GetEquipmentMaintenaceColl(objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
+        }
+
+        /// <summary>
+        /// Returns EquipmentMaintenance in list of equipment.
+        /// </summary>
+        /// <param name="inputData"></param>
+        /// <returns></returns>
+        public List<EquipmentMaintenance> GetEquipmentMaintenaceColl(string inputData)
+        {
+
+            string[] arrayInputData = inputData.Split('\n');
+            List<EquipmentMaintenance> objEquipMaintenanceColl = new List<EquipmentMaintenance>();
+
+            if (arrayInputData.Length > 0)
+            {
+
+                string[] arrayNextRow;
+
+                for (int index = 1; index < arrayInputData.Length; ++index)
+                {
+                    arrayNextRow = null;
+                    arrayNextRow = arrayInputData[index].Split(',');
+                    if (arrayNextRow.Length == 6)
+                    {
+                        if (!string.IsNullOrEmpty(arrayNextRow[0].Trim()))
+                        {
+                            EquipmentMaintenance objEquipMaintenance = GetEquipmentMaintenace(arrayNextRow[0].Trim(), arrayNextRow[1].Trim(), arrayNextRow[2].Trim(), arrayNextRow[3].Trim(), arrayNextRow[4].Trim(), arrayNextRow[5].Trim());
+                            objEquipMaintenanceColl.Add(objEquipMaintenance);
+                        }
+                    }
+
+                }
+                return objEquipMaintenanceColl;
+
+            }
+            else
+            {
+                return objEquipMaintenanceColl;
+            }
+
+
+        }
+/// <summary>
+/// Returns EquipmentMaintenace object
+/// </summary>
+/// <param name="MaintenanceWorkId"></param>
+/// <param name="Date"></param>
+/// <param name="Time"></param>
+/// <param name="WorksDescription"></param>
+/// <param name="EquipmentId"></param>
+/// <param name="TimeTaken"></param>
+/// <returns></returns>
+        public EquipmentMaintenance GetEquipmentMaintenace(string MaintenanceWorkId, string Date, string Time, string WorksDescription, string EquipmentId, string TimeTaken)
+        {
+
+            EquipmentMaintenance objEquipmentMaintenace = new EquipmentMaintenance();
+
+            EquipmentBL objEquipBL = new EquipmentBL(EquipmentFilePath);
+            Equipment objEquip = objEquipBL.Find(int.Parse(EquipmentId));
+
+            objEquipmentMaintenace.ID = int.Parse(MaintenanceWorkId);
+            objEquipmentMaintenace.WorkDate = DateTime.ParseExact(Date, "dd/MM/yyyy", null);
+            objEquipmentMaintenace.TimeTaken = int.Parse(TimeTaken);
+            objEquipmentMaintenace.WorkTime = Time;
+            objEquipmentMaintenace.Description = WorksDescription;
+
+            if (objEquip == null)
+                objEquipmentMaintenace.ObjEquip = new Equipment();
+            else
+                objEquipmentMaintenace.ObjEquip = objEquip;
+
+            return objEquipmentMaintenace;
         }
 
         public bool AddRecord(EquipmentMaintenance objEquipMaintenance)
@@ -58,23 +134,19 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <returns></returns>
         private ArrayList Delete(int id)
         {
-            FileOperations objEquipMaintenanceDB = new FileOperations();
-            DataTable dtData = OrganiseInTable(objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
 
-            string line = string.Empty;
+            List<EquipmentMaintenance> objEquipMaintenanceColl = SelectAllData();
+            objEquipMaintenanceColl.RemoveAll(equipMain => equipMain.ID == id);
+            FileOperations objEquipDB = new FileOperations();
             ArrayList lines = new ArrayList();
             lines.Add("MaintenanceWorkId,Date,Time,WorksDescription,EquipmentId,TimeTaken");
-            foreach (DataRow row in dtData.Rows)
+
+            foreach (EquipmentMaintenance equipMaintenance in objEquipMaintenanceColl)
             {
-                if (int.Parse(row[0].ToString()) == id)
-                { }
-                else
-                {
-                    line = row[0].ToString() + "," + row[1].ToString() + "," + row[2].ToString() + "," + row[3].ToString() + "," + row[4].ToString() + "," + row[5].ToString();
-                    lines.Add(line);
-                }
+                lines.Add(equipMaintenance.ToString());
             }
             return lines;
+
         }
        
         /// <summary>
@@ -83,145 +155,44 @@ namespace Midway_Assessment.BusinessLogicLayer
         /// <param name="filePath"></param>
         /// <param name="objEquipMaintenance"></param>
         /// <returns></returns>
-        private ArrayList Edit( EquipmentMaintenance objEquipMaintenance)
+        private ArrayList Edit( EquipmentMaintenance objNewEquipMaintenance)
         {
-             FileOperations objEquipMaintenanceDB = new FileOperations();
-            DataTable dtData = OrganiseInTable(objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
 
-            string line = string.Empty;
+            FileOperations objEquipMaintenaceDB = new FileOperations();
+            List<EquipmentMaintenance> objEquipMaintenaceColl = SelectAllData();
             ArrayList lines = new ArrayList();
             lines.Add("MaintenanceWorkId,Date,Time,WorksDescription,EquipmentId,TimeTaken");
-            foreach (DataRow row in dtData.Rows)
+            foreach (EquipmentMaintenance equipMaintenace in objEquipMaintenaceColl)
             {
-                if (int.Parse(row[0].ToString()) == objEquipMaintenance.ID)
-                {
-                    line = row[0].ToString() + "," + objEquipMaintenance.WorkDate.Date.ToString("dd/MM/yyyy") +","+
-                           objEquipMaintenance.WorkTime+","+objEquipMaintenance.Description+","+objEquipMaintenance.ObjEquip.ID.ToString()+"," +objEquipMaintenance.TimeTaken.ToString();
-                }
+                if (equipMaintenace.ID == objNewEquipMaintenance.ID)
+                    lines.Add(objNewEquipMaintenance.ToString());                    
                 else
-                {
-                    line = row[0].ToString() + "," + row[1].ToString() + "," + row[2].ToString() + "," + row[3].ToString() + "," + row[4].ToString() + "," + row[5].ToString() ;
-                }
-                lines.Add(line);
+                lines.Add(equipMaintenace.ToString());
             }
             return lines;
+
         }
         /// <summary>
-        /// Finds the record based on name of the EquipmentMaintenance.
+        /// Finds the record based on id of the EquipmentMaintenance.
         /// </summary>
         /// <param name="filePath"></param>
         /// <param name="equipMaintenanceID"></param>
         /// <returns></returns>
         public EquipmentMaintenance Find(int equipMaintenanceID)
         {
+
             FileOperations objEquipMaintenanceDB = new FileOperations();
             EquipmentMaintenance objEquipMaintenance = new EquipmentMaintenance();
-            DataTable dtData = OrganiseInTable(objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
-
-            DataRow[] rowColl = dtData.Select("MaintenanceWorkId = " + equipMaintenanceID + "");
-            if (rowColl.Length > 0)
-            {
-                DataRow newRow = rowColl[0];
-                objEquipMaintenance.ID = int.Parse(newRow[0].ToString());
-                objEquipMaintenance.WorkDate =DateTime.ParseExact( newRow[1].ToString(), "dd/MM/yyyy", null);
-                objEquipMaintenance.WorkTime =newRow[2].ToString().Trim();
-
-                objEquipMaintenance.Description = newRow[3].ToString();
-                objEquipMaintenance.ObjEquip.ID = int.Parse(newRow[4].ToString());
-                objEquipMaintenance.TimeTaken = int.Parse(newRow[5].ToString());
-
-
-            }
-            return objEquipMaintenance;
-
+            List<EquipmentMaintenance> objEquipMaintenanceColl = SelectAllData();
+            return objEquipMaintenanceColl.FirstOrDefault(equipMaintenance => equipMaintenance.ID == equipMaintenanceID);
+            
         }
 
-        /// <summary>
-        /// Arranges the data into table format
-        /// </summary>
-        /// <param name="inputData"></param>
-        /// <returns></returns>
-       public DataTable OrganiseInTable(string inputData)
+        public int GetMaxID()
         {
-           
-            string[] arrayInputData = inputData.Split('\n');
-
-            DataTable dtEquipmentMaintenanceData = new DataTable();
-            if (arrayInputData.Length > 0)
-            {
-                string[] arrayFirstRow = arrayInputData[0].Split(',');
-                string[] arrayNextRow;
-                if (arrayFirstRow.Length == 6)
-                {
-                    arrayFirstRow[0] = arrayFirstRow[0].Trim('\r').Trim();
-                    arrayFirstRow[1] = arrayFirstRow[1].Trim('\r').Trim();
-                    arrayFirstRow[2] = arrayFirstRow[2].Trim('\r').Trim();
-                    arrayFirstRow[3] = arrayFirstRow[3].Trim('\r').Trim();
-                    arrayFirstRow[4] = arrayFirstRow[4].Trim('\r').Trim();
-                    arrayFirstRow[5] = arrayFirstRow[5].Trim('\r').Trim();
-
-                    dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[0].Trim('\r').Trim(), typeof(int));
-                    dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[1].Trim('\r').Trim());
-                    dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[2].Trim('\r').Trim());
-                    dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[3].Trim('\r').Trim());
-                    dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[4].Trim('\r').Trim());
-                    dtEquipmentMaintenanceData.Columns.Add(arrayFirstRow[5].Trim('\r').Trim());
-                    dtEquipmentMaintenanceData.Columns.Add("name");
-                    
-                    EquipmentBL objEquipBL = new EquipmentBL(EquipmentFilePath);
-                    //DataTable dtEquipmentData = objEquipBL.SelectAllData();
-                    DataTable dtEquipmentData =new DataTable(); //Dummy data
-                    DataRow[] selectedRow;
-
-                    for (int index = 1; index < arrayInputData.Length; ++index)
-                    {
-                        arrayNextRow = null;
-                        arrayNextRow = arrayInputData[index].Split(',');
-                        if (arrayNextRow.Length == 6)
-                        {
-                            DataRow drEquipmentMaintenance = dtEquipmentMaintenanceData.NewRow();
-                            drEquipmentMaintenance[arrayFirstRow[0]] = arrayNextRow[0].Trim('\r').Trim();
-                            drEquipmentMaintenance[arrayFirstRow[1]] = arrayNextRow[1].Trim('\r').Trim();
-                            drEquipmentMaintenance[arrayFirstRow[2]] = arrayNextRow[2].Trim('\r').Trim();
-                            drEquipmentMaintenance[arrayFirstRow[3]] = arrayNextRow[3].Trim('\r').Trim();
-                            drEquipmentMaintenance[arrayFirstRow[4]] = arrayNextRow[4].Trim('\r').Trim();
-                            drEquipmentMaintenance[arrayFirstRow[5]] = arrayNextRow[5].Trim('\r').Trim();
-
-                           selectedRow = dtEquipmentData.Select("EquipmentId = " + arrayNextRow[4].Trim('\r').Trim());
-                           if (selectedRow.Length > 0)
-                           {
-                               drEquipmentMaintenance["name"] = selectedRow[0][1].ToString().Trim('\r').Trim();
-                           }
-
-                            dtEquipmentMaintenanceData.Rows.Add(drEquipmentMaintenance);
-                        }
-
-                    }
-
-                    return dtEquipmentMaintenanceData;
-                }
-                else
-                {
-                    return dtEquipmentMaintenanceData;
-                }
-            }
-            else
-            {
-                return dtEquipmentMaintenanceData;
-            }
-
+            List<EquipmentMaintenance> objEquipMaintenaceColl = SelectAllData();
+            return objEquipMaintenaceColl.Max(r => r.ID);
         }
 
-
-       public int GetMaxID()
-       {
-           FileOperations objEquipMaintenanceDB = new FileOperations();
-           DataTable dtEquipData = OrganiseInTable(objEquipMaintenanceDB.ReadAll(EquipmentMaintenaceFilePath));
-
-           int maxID = 0;
-           int.TryParse(dtEquipData.Compute("Max(MaintenanceWorkId)", "").ToString(), out maxID);
-
-           return maxID;
-       }
     }
 }

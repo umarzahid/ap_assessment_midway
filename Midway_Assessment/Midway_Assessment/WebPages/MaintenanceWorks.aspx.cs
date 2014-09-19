@@ -33,11 +33,10 @@ namespace Midway_Assessment.WebPages
         /// </summary>
         private void BindGrid()
         {
-            EquipmentMaintenanceBL objEquipmentMaintenance = new EquipmentMaintenanceBL(EquipmentMaintenanceFilePath, EquipmentFilePath);
             try
             {
-                DataTable dtEquipmentMaintenace = objEquipmentMaintenance.SelectAllData();
-                gvEquipmentMaintenance.DataSource = dtEquipmentMaintenace;
+                EquipmentMaintenanceBL objEquipmentMaintenaceBL = new EquipmentMaintenanceBL(EquipmentMaintenanceFilePath,EquipmentFilePath);
+                gvEquipmentMaintenance.DataSource = objEquipmentMaintenaceBL.SelectAllData();
                 gvEquipmentMaintenance.DataBind();
             }
             catch(Exception ex)

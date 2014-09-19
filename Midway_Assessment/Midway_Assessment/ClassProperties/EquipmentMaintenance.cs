@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Midway_Assessment.ClassProperties
@@ -89,6 +90,23 @@ namespace Midway_Assessment.ClassProperties
             {
                 this.description = value;
             }
+        }
+        public override string ToString()
+        {
+            StringBuilder objString = new StringBuilder();
+            objString.Append(id);
+            objString.Append(",");
+            objString.Append(workDate.Date.ToString("dd/MM/yyyy"));
+            objString.Append(",");
+            objString.Append(WorkTime);
+            objString.Append(",");
+            objString.Append(Description);
+            objString.Append(",");
+            objString.Append(ObjEquip.ID.ToString());
+            objString.Append(",");
+            objString.Append(TimeTaken);
+
+            return objString.ToString();
         }
     }
 }

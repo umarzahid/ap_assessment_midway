@@ -53,9 +53,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BusinessAccessLayer_Test\EquipmentMaintenanceBL_TDD.cs" />
-    <Compile Include="DataAccessLayer_Test\EquipmentDB_TDD.cs" />
     <Compile Include="BusinessAccessLayer_Test\EquipmentBL_TDD.cs" />
-    <Compile Include="DataAccessLayer_Test\EquipmentMaintenanceDB_TDD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +61,9 @@
       <Project>{4b18cdf2-5198-424d-8abc-504c93d71be5}</Project>
       <Name>Midway_Assessment</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataAccessLayer_Test\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
