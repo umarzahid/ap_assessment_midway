@@ -29,17 +29,17 @@ namespace MidwayAssessmentTest
         /// </summary>
         
         [TestMethod]
-        public void GetInTable()
+        public void GetEquipmentColl_Test()
         {
             EquipmentBL equipBL = new EquipmentBL(filePath);
 
-            EquipmentDB equipDB = new EquipmentDB();
+            FileOperations equipDB = new FileOperations();
 
             string result = equipDB.ReadAll(filePath);
 
-            DataTable resultDB = equipBL.OrganiseInTable(result);
+            List<Equipment> resultDB = equipBL.GetEquipmentColl(result);
             //Expected result will vary depending on number of records in the table.
-            Assert.AreEqual(10, resultDB.Rows.Count);
+            Assert.AreEqual(10, resultDB.Count);
         }
 
         [TestMethod]
@@ -76,26 +76,7 @@ namespace MidwayAssessmentTest
             Assert.AreEqual(true, result);
         }
 
-               
-                //[TestMethod]
-                //public void Test_UpdateRecord()
-                //{
-                //    EquipmentBL equipBL = new EquipmentBL(filePath);
-                //     Midway_Assessment.ClassProperties.Equipment objEquip  = new Midway_Assessment.ClassProperties.Equipment();
-                //    objEquip.ID = 7;
-                //    objEquip.Name = "Testing Update";
-                //    bool result = equipBL.UpdateRecord(objEquip);
-                //    Assert.AreEqual(true, result);
-                //}
-                //[TestMethod]
-                //public void Test_DeleteRecord()
-                //{
-                //    EquipmentBL equipBL = new EquipmentBL(filePath);
-                //    Midway_Assessment.ClassProperties.Equipment objEquip = new Midway_Assessment.ClassProperties.Equipment();
-                //    int id = 7;
-                //    bool result = equipBL.DeleteRecord( id);
-                //    Assert.AreEqual(true, result);
-                //}
+
                 [TestMethod]
                 public void GetMaxID()
                 {

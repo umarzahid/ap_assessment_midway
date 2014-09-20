@@ -13,7 +13,7 @@
           $("[id$=txtDate]").datepicker({
               showOn: 'button',
               showsTime: true,
-              dateFormat:"dd/mm/yy"
+              dateFormat:"d/mm/yy"
          
           });
       });
@@ -225,19 +225,33 @@
         </table>
     
     </div>
-        <asp:GridView ID="gvEquipmentMaintenance"  RowStyle-Wrap="True" AutoGenerateColumns="False" DataKeyNames="MaintenanceWorkId,EquipmentId" AllowPaging="True" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Left"  Width="100%" PageSize="15" OnPageIndexChanging="gvEquipMaintenance_PageIndexChanging" OnSelectedIndexChanged="gvEquipMaintenace_SelectedIndexChanged" AutoGenerateSelectButton="True">
+        <asp:GridView ID="gvEquipmentMaintenance"  RowStyle-Wrap="True" AutoGenerateColumns="False" DataKeyNames="MaintenanceWorkId" AllowPaging="True" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Left"  Width="100%" PageSize="15" OnPageIndexChanging="gvEquipMaintenance_PageIndexChanging" OnSelectedIndexChanged="gvEquipMaintenace_SelectedIndexChanged" AutoGenerateSelectButton="True">
          <PagerStyle HorizontalAlign="Center"  />
             <PagerSettings Mode="NextPreviousFirstLast" FirstPageText="First" NextPageText="Next" LastPageText="Last" PreviousPageText="Previous" />
                <AlternatingRowStyle BackColor="Gainsboro" />
             <Columns>
                 <asp:BoundField DataField="MaintenanceWorkId" Visible="False" />
-                <asp:BoundField DataField="EquipmentId" Visible="False" />
-                <asp:BoundField AccessibleHeaderText="Name" DataField="name" HeaderText="Name" SortExpression="name" />
-                <asp:BoundField AccessibleHeaderText="Work Date" DataField="Date" HeaderText="Work Date" SortExpression="name" />
+                <asp:BoundField DataField="ID" Visible="False" />
+                <%--<asp:BoundField AccessibleHeaderText="Name" DataField="name" HeaderText="Name" SortExpression="name" />--%>
+                <asp:templatefield headertext="Equipment Name">
+				<itemtemplate >
+					<%# ((Midway_Assessment.ClassProperties.EquipmentMaintenance)Container.DataItem).ObjEquip.Name %>
+				</itemtemplate>
+			</asp:templatefield>
+
+
+                <asp:BoundField AccessibleHeaderText="Work Date" DataFormatString="{0:d/MM/yyyy}" DataField="Date" HeaderText="Work Date" SortExpression="name" />
                 <asp:BoundField AccessibleHeaderText="Work Time" DataField="Time" HeaderText="Work Time" SortExpression="name" />
                 <asp:BoundField AccessibleHeaderText="Time Taken (min)" DataField="TimeTaken" HeaderText="Time Taken(min)" SortExpression="name" />
                    <asp:BoundField AccessibleHeaderText="Description" DataField="WorksDescription" HeaderText="Description" SortExpression="name" />
          
+                
+                <asp:TemplateField Visible="false">
+         <ItemTemplate>
+             <asp:Label id="lblEquipmentID" runat ="server" text='<%# ((Midway_Assessment.ClassProperties.EquipmentMaintenance)Container.DataItem).ObjEquip.ID  %>'/>
+         </ItemTemplate>
+      </asp:TemplateField>
+
             </Columns>
             <HeaderStyle BackColor="Brown" ForeColor="White" />
             

@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Midway_Assessment.BusinessLogicLayer;
 using Midway_Assessment.DataAccessLayer;
 using System.Data;
+using System.Collections.Generic;
+using Midway_Assessment.ClassProperties;
 
 namespace MidwayAssessmentTest.BusinessAccessLayer_Test
 {
@@ -24,17 +26,17 @@ namespace MidwayAssessmentTest.BusinessAccessLayer_Test
         /// </summary>
         
         [TestMethod]
-        public void GetInTable()
+        public void GetEquipmentMaintenanceColl_Test()
         {
             EquipmentMaintenanceBL equipMaintenanceBL = new EquipmentMaintenanceBL(filePath_equipmentMaintenance,filePath_equipment);
 
-            EquipmentMaintenanceDB equipDB = new EquipmentMaintenanceDB();
+            FileOperations equipDB = new FileOperations();
 
             string result = equipDB.ReadAll(filePath_equipmentMaintenance);
 
-            DataTable resultDB = equipMaintenanceBL.OrganiseInTable(result);
+            List<EquipmentMaintenance> resultColl = equipMaintenanceBL.GetEquipmentMaintenaceColl(result);
             //Expected result will vary depending on number of records in the table.
-            Assert.IsTrue(resultDB.Rows.Count>0,"First row represents column names. So it will be greater than 0.");
+            Assert.IsTrue(resultColl.Count>0,"First row represents column names. So it will be greater than 0.");
         }
         [TestMethod]
         public void Find()
@@ -44,7 +46,7 @@ namespace MidwayAssessmentTest.BusinessAccessLayer_Test
 
             Midway_Assessment.ClassProperties.EquipmentMaintenance result = equipMaintenanceBL.Find(251);
 
-            Assert.AreEqual(251, result.ID);
+            Assert.AreEqual(251, result.MaintenanceWorkId);
         }
         [TestMethod]
         public void GetMaxID()
@@ -52,8 +54,8 @@ namespace MidwayAssessmentTest.BusinessAccessLayer_Test
             EquipmentMaintenanceBL equipMaintenaceBL = new  EquipmentMaintenanceBL(filePath_equipmentMaintenance,filePath_equipment);
 
             int result = equipMaintenaceBL.GetMaxID();
-
-            Assert.AreEqual(1000, result);
+            //Result may vary depending on the number of records.
+            Assert.AreEqual(1003, result);
         }
     }
 }

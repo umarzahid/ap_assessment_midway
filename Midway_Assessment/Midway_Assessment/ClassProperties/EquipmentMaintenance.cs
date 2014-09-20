@@ -9,7 +9,7 @@ namespace Midway_Assessment.ClassProperties
     public class EquipmentMaintenance
     {
         ClassProperties.Equipment objEquip;
-        int id;
+        int maintenanceWorkId;
         DateTime workDate;
         string workTime;
         int timeTaken;
@@ -18,7 +18,7 @@ namespace Midway_Assessment.ClassProperties
         public EquipmentMaintenance()
         {
             objEquip = new Equipment();
-            id = -1;
+            maintenanceWorkId = -1;
             workDate = DateTime.Now;
             workTime = "00:00";
             timeTaken = 0;
@@ -36,18 +36,18 @@ namespace Midway_Assessment.ClassProperties
                 this.objEquip = value;
             }
         }
-        public int ID
+        public int MaintenanceWorkId
         {
             get
             {
-                return this.id;
+                return this.maintenanceWorkId;
             }
             set
             {
-                this.id = value;
+                this.maintenanceWorkId = value;
             }
         }
-        public DateTime WorkDate
+        public DateTime Date
         {
             get
             {
@@ -58,7 +58,7 @@ namespace Midway_Assessment.ClassProperties
                 this.workDate = value;
             }
         }
-        public string WorkTime
+        public string Time
         {
             get
             {
@@ -80,7 +80,7 @@ namespace Midway_Assessment.ClassProperties
                 this.timeTaken = value;
             }
         }
-        public string Description
+        public string WorksDescription
         {
             get
             {
@@ -94,13 +94,13 @@ namespace Midway_Assessment.ClassProperties
         public override string ToString()
         {
             StringBuilder objString = new StringBuilder();
-            objString.Append(id);
+            objString.Append(maintenanceWorkId);
             objString.Append(",");
             objString.Append(workDate.Date.ToString("dd/MM/yyyy"));
             objString.Append(",");
-            objString.Append(WorkTime);
+            objString.Append(Time);
             objString.Append(",");
-            objString.Append(Description);
+            objString.Append(WorksDescription);
             objString.Append(",");
             objString.Append(ObjEquip.ID.ToString());
             objString.Append(",");

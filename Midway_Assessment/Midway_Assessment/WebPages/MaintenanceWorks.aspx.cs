@@ -60,7 +60,7 @@ namespace Midway_Assessment.WebPages
 
                 objEquipColl.Insert(0, objEquip);
 
-                cmbEquipment.DataSource = objEquip;
+                cmbEquipment.DataSource = objEquipColl;
                 cmbEquipment.DataTextField = "Name";
                 cmbEquipment.DataValueField = "ID";
                 cmbEquipment.DataBind();
@@ -130,9 +130,9 @@ namespace Midway_Assessment.WebPages
             else
                 objEquipMaintenance.TimeTaken = 0;
 
-            objEquipMaintenance.WorkDate = DateTime.ParseExact(this.txtDate.Text.ToString(), "dd/MM/yyyy",null);
-            objEquipMaintenance.WorkTime = this.cmbHour.SelectedValue.ToString()+":"+this.cmbMinutes.SelectedValue.ToString();
-            objEquipMaintenance.Description = txtDescription.Text.Trim();
+            objEquipMaintenance.Date = DateTime.ParseExact(this.txtDate.Text.ToString(), "d/MM/yyyy",null);
+            objEquipMaintenance.Time = this.cmbHour.SelectedValue.ToString()+":"+this.cmbMinutes.SelectedValue.ToString();
+            objEquipMaintenance.WorksDescription = txtDescription.Text.Trim();
 
             return objEquipMaintenance;
         }
@@ -147,7 +147,7 @@ namespace Midway_Assessment.WebPages
                     EquipmentMaintenanceBL objEquipMaintenanceBL = new EquipmentMaintenanceBL(EquipmentMaintenanceFilePath, EquipmentFilePath);
                     AckMessage message = new AckMessage();
                     ClassProperties.EquipmentMaintenance objEquipMaintenance = getEquipmentMaintenanceObject();
-                    objEquipMaintenance.ID = int.Parse(Session["MaintenanceWorkID"].ToString());
+                    objEquipMaintenance.MaintenanceWorkId = int.Parse(Session["MaintenanceWorkID"].ToString());
                     if (objEquipMaintenanceBL.UpdateRecord(objEquipMaintenance))
                     {
                         message.Update("The record", Response);
@@ -215,7 +215,7 @@ namespace Midway_Assessment.WebPages
             try
             {
                 Session["MaintenanceWorkID"] = this.gvEquipmentMaintenance.DataKeys[selectedRowNumber][0].ToString();
-                this.cmbEquipment.SelectedValue = this.gvEquipmentMaintenance.DataKeys[selectedRowNumber][1].ToString();
+                this.cmbEquipment.SelectedValue = ((Label)this.gvEquipmentMaintenance.Rows[selectedRowNumber].FindControl("lblEquipmentID")).Text;
 
                 this.txtDate.Text = this.gvEquipmentMaintenance.Rows[selectedRowNumber].Cells[4].Text;
 

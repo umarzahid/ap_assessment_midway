@@ -89,11 +89,11 @@ namespace Midway_Assessment.BusinessLogicLayer
             EquipmentBL objEquipBL = new EquipmentBL(EquipmentFilePath);
             Equipment objEquip = objEquipBL.Find(int.Parse(EquipmentId));
 
-            objEquipmentMaintenace.ID = int.Parse(MaintenanceWorkId);
-            objEquipmentMaintenace.WorkDate = DateTime.ParseExact(Date, "dd/MM/yyyy", null);
+            objEquipmentMaintenace.MaintenanceWorkId = int.Parse(MaintenanceWorkId);
+            objEquipmentMaintenace.Date = DateTime.ParseExact(Date, "d/MM/yyyy", null);
             objEquipmentMaintenace.TimeTaken = int.Parse(TimeTaken);
-            objEquipmentMaintenace.WorkTime = Time;
-            objEquipmentMaintenace.Description = WorksDescription;
+            objEquipmentMaintenace.Time = Time;
+            objEquipmentMaintenace.WorksDescription = WorksDescription;
 
             if (objEquip == null)
                 objEquipmentMaintenace.ObjEquip = new Equipment();
@@ -107,8 +107,8 @@ namespace Midway_Assessment.BusinessLogicLayer
         {
             FileOperations objEquipMaintenanceDB = new FileOperations();
 
-            string data = (GetMaxID() + 1).ToString() + "," + objEquipMaintenance.WorkDate.Date.ToString("dd/MM/yyyy") +","+
-                           objEquipMaintenance.WorkTime+","+objEquipMaintenance.Description+","+objEquipMaintenance.ObjEquip.ID.ToString()+"," +objEquipMaintenance.TimeTaken.ToString();
+            string data = (GetMaxID() + 1).ToString() + "," + objEquipMaintenance.Date.Date.ToString("dd/MM/yyyy") +","+
+                           objEquipMaintenance.Time+","+objEquipMaintenance.WorksDescription+","+objEquipMaintenance.ObjEquip.ID.ToString()+"," +objEquipMaintenance.TimeTaken.ToString();
             return objEquipMaintenanceDB.Add(EquipmentMaintenaceFilePath, data);
 
         }
@@ -136,7 +136,7 @@ namespace Midway_Assessment.BusinessLogicLayer
         {
 
             List<EquipmentMaintenance> objEquipMaintenanceColl = SelectAllData();
-            objEquipMaintenanceColl.RemoveAll(equipMain => equipMain.ID == id);
+            objEquipMaintenanceColl.RemoveAll(equipMain => equipMain.MaintenanceWorkId == id);
             FileOperations objEquipDB = new FileOperations();
             ArrayList lines = new ArrayList();
             lines.Add("MaintenanceWorkId,Date,Time,WorksDescription,EquipmentId,TimeTaken");
@@ -164,7 +164,7 @@ namespace Midway_Assessment.BusinessLogicLayer
             lines.Add("MaintenanceWorkId,Date,Time,WorksDescription,EquipmentId,TimeTaken");
             foreach (EquipmentMaintenance equipMaintenace in objEquipMaintenaceColl)
             {
-                if (equipMaintenace.ID == objNewEquipMaintenance.ID)
+                if (equipMaintenace.MaintenanceWorkId == objNewEquipMaintenance.MaintenanceWorkId)
                     lines.Add(objNewEquipMaintenance.ToString());                    
                 else
                 lines.Add(equipMaintenace.ToString());
@@ -184,14 +184,14 @@ namespace Midway_Assessment.BusinessLogicLayer
             FileOperations objEquipMaintenanceDB = new FileOperations();
             EquipmentMaintenance objEquipMaintenance = new EquipmentMaintenance();
             List<EquipmentMaintenance> objEquipMaintenanceColl = SelectAllData();
-            return objEquipMaintenanceColl.FirstOrDefault(equipMaintenance => equipMaintenance.ID == equipMaintenanceID);
+            return objEquipMaintenanceColl.FirstOrDefault(equipMaintenance => equipMaintenance.MaintenanceWorkId == equipMaintenanceID);
             
         }
 
         public int GetMaxID()
         {
             List<EquipmentMaintenance> objEquipMaintenaceColl = SelectAllData();
-            return objEquipMaintenaceColl.Max(r => r.ID);
+            return objEquipMaintenaceColl.Max(r => r.MaintenanceWorkId);
         }
 
     }
