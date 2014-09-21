@@ -5,27 +5,80 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link href="Content/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+
+      <link href="Content/css/bootstrap.css" type="text/css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
-           <link  href="../Style/Site.css" rel="stylesheet" type="text/css" />
+  <%--         <link  href="../Style/Site.css" rel="stylesheet" type="text/css" />--%>
+
+
 
     </asp:ContentPlaceHolder>
 </head>
 <body>
+    <!-- Navigation and Header -->
+    <div class = "navbar navbar-inverse navbar-static-top">
+                        <div class = "container">
+                               
+                                <a href = "#" class = "navbar-brand">Midway Assessment</a>
+                               
+                                <button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">
+                                        <span class = "icon-bar"></span>
+                                        <span class = "icon-bar"></span>
+                                        <span class = "icon-bar"></span>
+                                </button>
+                               
+                                <div class = "collapse navbar-collapse navHeaderCollapse">
+                               
+                                        <ul class = "nav navbar-nav navbar-right">
+                                       
+                                                <li class = "active"><a href = "#">Home</a></li>
+                                                <li class = "dropdown">
+                                                       
+                                                        <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">Data Entry <b class = "caret"></b></a>
+                                                        <ul class = "dropdown-menu">
+                                                                <li><a href = "Equipment.aspx">Equipment</a></li>
+                                                                <li><a href = "MaintenanceWorks.aspx">Maintenance Work</a></li>
+                                                                
+                                                        </ul>
+                                               
+                                                </li>
+                                                <li><a href = "#">About</a></li>
+                                                <li><a href = "#">Contact</a></li>
+                                       
+                                        </ul>
+                               
+                                </div>
 
-        <div id="header">
-            <h1>Assessment</h1></div>
-        <div class="navigation-area"  >
-            <ul id="navigation-list" >
-                <li class="navigation-items"><a class="navigation-link" href="Index.aspx">Home</a></li>
-                <li class="navigation-items"><a class="navigation-link" href="Equipment.aspx">Equipment</a></li>
-                <li class="navigation-items"><a class="navigation-link" href="MaintenanceWorks.aspx">Maintenance Works</a></li>
-            </ul>
+                        </div>  
+
         </div>
-    <div id="content">
+
+    <!--Main body-->
+
+                          
+         <script src="../Script/jquery-2.1.1.min.js"></script>
+<script src="../Script/bootstrap.js"></script>
+
+    <div id="container">
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
     </div>
+
+                                 
+<!-- Footer section -->
+                                 
+               <%--         <div class = "navbar navbar-default navbar-fixed-bottom">
+                      
+                        <div class = "container">
+                                <p class = "navbar-text pull-left">Site Built By Umar Butt</p>
+                        </div>
+               
+                </div>
+               --%>
+
     
 </body>
 </html>

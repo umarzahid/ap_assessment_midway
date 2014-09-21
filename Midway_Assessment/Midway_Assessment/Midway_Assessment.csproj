@@ -59,7 +59,15 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\bootstrap-theme.css" />
+    <Content Include="Content\css\bootstrap-theme.min.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="images\background.jpg" />
+    <Content Include="Script\bootstrap.js" />
+    <Content Include="Script\bootstrap.min.js" />
+    <Content Include="Script\bs.pagination.js" />
+    <Content Include="Script\jquery-2.1.1.min.js" />
     <Content Include="Style\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Style\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Style\images\ui-bg_flat_10_000000_40x100.png" />

@@ -2,28 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-    <link  href="../Style/Site.css" rel="stylesheet" type="text/css" />
-    <%--<link  rel="stylesheet" href="http://localhost:57459/code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />--%>
-    <link  rel="stylesheet" href="../Style/jquery-ui.css" />
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-    <%--<link rel="stylesheet" href="/resources/demos/style.css" />--%>
-<script>
-      $(function () {
-          $("[id$=txtDate]").datepicker({
-              showOn: 'button',
-              showsTime: true,
-              dateFormat:"d/mm/yy"
-         
-          });
-      });
-      function ConfirmDelete() {
-          if (confirm("Are you sure you want to delete the record?")) {
-              return true;
-          }
-          return false;
-      }
-  </script>
+    <%-- <link  href="../Style/Site.css" rel="stylesheet" type="text/css" />--%>
+    <link  rel="stylesheet" href="../Style/jquery-ui.css" type="text/css" />
    
     <style type="text/css">
         .auto-style1 {
@@ -36,6 +16,27 @@
    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+      <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="../Script/bs.pagination.js"></script>
+    <%--<link rel="stylesheet" href="/resources/demos/style.css" />--%>
+<script>
+    $(function () {
+        $("[id$=txtDate]").datepicker({
+            showOn: 'button',
+            showsTime: true,
+            dateFormat: "d/mm/yy"
+
+        });
+    });
+    function ConfirmDelete() {
+        if (confirm("Are you sure you want to delete the record?")) {
+            return true;
+        }
+        return false;
+    }
+  </script>
+
      <h2>Equipment Maintenance</h2>
     <form runat="server">
         <div>
@@ -225,9 +226,9 @@
         </table>
     
     </div>
-        <asp:GridView ID="gvEquipmentMaintenance"  RowStyle-Wrap="True" AutoGenerateColumns="False" DataKeyNames="MaintenanceWorkId" AllowPaging="True" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Left"  Width="100%" PageSize="15" OnPageIndexChanging="gvEquipMaintenance_PageIndexChanging" OnSelectedIndexChanged="gvEquipMaintenace_SelectedIndexChanged" AutoGenerateSelectButton="True">
+        <asp:GridView ID="gvEquipmentMaintenance" PagerStyle-CssClass="bs-pagination" CssClass="table"   RowStyle-Wrap="True" AutoGenerateColumns="False" DataKeyNames="MaintenanceWorkId" AllowPaging="True" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Left"  Width="100%" PageSize="15" OnPageIndexChanging="gvEquipMaintenance_PageIndexChanging" OnSelectedIndexChanged="gvEquipMaintenace_SelectedIndexChanged" AutoGenerateSelectButton="True">
          <PagerStyle HorizontalAlign="Center"  />
-            <PagerSettings Mode="NextPreviousFirstLast" FirstPageText="First" NextPageText="Next" LastPageText="Last" PreviousPageText="Previous" />
+            <PagerSettings Mode="NumericFirstLast" PageButtonCount="10" FirstPageText="First" NextPageText="Next" LastPageText="Last"  PreviousPageText="Previous" />
                <AlternatingRowStyle BackColor="Gainsboro" />
             <Columns>
                 <asp:BoundField DataField="MaintenanceWorkId" Visible="False" />
