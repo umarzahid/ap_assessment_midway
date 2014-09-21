@@ -12,24 +12,32 @@
          }
  </script>
     <link  href="../Style/Site.css" rel="stylesheet" type="text/css" />
+     <style type="text/css">
+         .auto-style1 {
+             width: 343px;
+         }
+         .auto-style2 {
+             width: 54px;
+         }
+     </style>
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h2>Equipment</h2>
     <form id="form1" runat="server">
     <div>
     
-        <table class="table table-striped table-bordered table-condensed" >
+        <table class="table table-striped table-condensed" >
             <tr>
-                <td >&nbsp;</td>
-                <td >
+                <td class="auto-style2" >&nbsp;</td>
+                <td class="auto-style1" >
                     &nbsp;</td>
                 <td >&nbsp;</td>
             </tr>
             <tr>
-                <td >
+                <td class="auto-style2" >
                     <asp:Label ID="lblEquipName" CssClass="label-style" runat="server" Font-Bold="True" Font-Overline="False" Font-Strikeout="False">Name</asp:Label>
                 </td>
-                <td >
+                <td class="auto-style1" >
                     <asp:TextBox ID="txtEquipName" CssClass="textbox-style" runat="server" Height="25px" Width="336px" OnTextChanged="txtEquipName_TextChanged" ValidationGroup="DataValidator"></asp:TextBox>
                 </td>
                 <td >
@@ -39,8 +47,8 @@
                 </td>
             </tr>
             <tr>
-                <td >&nbsp;</td>
-                <td >
+                <td class="auto-style2" >&nbsp;</td>
+                <td class="auto-style1" >
                     <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary" Text="Add" OnClick="btnAdd_Click" ValidationGroup="Add" />
 &nbsp;<asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="btn btn-primary"   ValidationGroup="Update" OnClick="btnUpdate_Click" />
 &nbsp;<asp:Button ID="btnDelete" runat="server" Text="Delete"  OnClick="btnDelete_Click" CssClass="btn btn-primary" ValidationGroup="Delete" OnClientClick="return ConfirmDelete()" />
@@ -49,6 +57,8 @@
                     &nbsp;</td>
             </tr>
         </table>
+
+
     
          
     </div>
