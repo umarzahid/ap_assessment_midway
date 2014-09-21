@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <%-- <link  href="../Style/Site.css" rel="stylesheet" type="text/css" />--%>
-    <link  rel="stylesheet" href="../Style/jquery-ui.css" type="text/css" />
+    <link  rel="stylesheet" href="../Content/jquery-ui.css" type="text/css" />
    
     <style type="text/css">
         .auto-style1 {

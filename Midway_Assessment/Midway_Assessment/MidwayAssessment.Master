@@ -9,6 +9,7 @@
           <link href="Content/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 
       <link href="Content/css/bootstrap.css" type="text/css" rel="stylesheet" />
+    
     <asp:ContentPlaceHolder ID="head" runat="server">
   <%--         <link  href="../Style/Site.css" rel="stylesheet" type="text/css" />--%>
 
@@ -61,7 +62,8 @@
          <script src="../Script/jquery-2.1.1.min.js"></script>
 <script src="../Script/bootstrap.js"></script>
 
-    <div id="container">
+    <div class="container">
+
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
@@ -69,8 +71,8 @@
 
                                  
 <!-- Footer section -->
-                                 
-               <%--         <div class = "navbar navbar-default navbar-fixed-bottom">
+                    <%--             
+                        <div class = "navbar navbar-default navbar-fixed-bottom">
                       
                         <div class = "container">
                                 <p class = "navbar-text pull-left">Site Built By Umar Butt</p>
