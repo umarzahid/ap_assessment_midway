@@ -19,10 +19,11 @@
              width: 54px;
          }
      </style>
-    <script type="text/javascript" src="../Script/bs.pagination.js"></script>
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h2>Equipment</h2>
+    <script type="text/javascript" src="../Script/bs.pagination.js"></script>
+   
+     <h2>Equipment</h2>
     <form id="form1" runat="server" class="form-horizontal">
     <div>
     
@@ -62,8 +63,8 @@
     
          
     </div>
-      <asp:GridView ID="gvEquipment" PagerStyle-CssClass="bs-pagination" CssClass="table" AutoGenerateColumns="False" DataKeyNames="ID" AllowPaging="True" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Left"  Width="100%" PageSize="15" OnPageIndexChanging="gvEquipment_PageIndexChanging" OnSelectedIndexChanged="gvEquipment_SelectedIndexChanged" AutoGenerateSelectButton="True">
-          <PagerSettings Mode="NumericFirstLast" PageButtonCount="10" FirstPageText="First" NextPageText="Next" LastPageText="Last"  PreviousPageText="Previous" />
+      <asp:GridView ID="gvEquipment" style="margin-bottom:10%" PagerStyle-CssClass="bs-pagination" CssClass="table" AutoGenerateColumns="False" DataKeyNames="ID" AllowPaging="True" CellPadding="5" CellSpacing="5" HeaderStyle-BackColor="Brown" HeaderStyle-ForeColor="White" AlternatingRowStyle-BackColor="Gainsboro" runat="server" HorizontalAlign="Left"  PageSize="15" OnPageIndexChanging="gvEquipment_PageIndexChanging" OnSelectedIndexChanged="gvEquipment_SelectedIndexChanged" AutoGenerateSelectButton="True">
+          <PagerSettings Mode="NumericFirstLast" FirstPageText="First" NextPageText="Next" LastPageText="Last"  PreviousPageText="Previous" />
          <PagerStyle HorizontalAlign="Center" />
                <AlternatingRowStyle BackColor="Gainsboro" />
             <Columns>
