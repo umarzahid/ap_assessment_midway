@@ -22,6 +22,15 @@ namespace Midway_Assessment.WebPages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// acknowledgementBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl acknowledgementBox;
+        
+        /// <summary>
         /// lblEquipName control.
         /// </summary>
         /// <remarks>

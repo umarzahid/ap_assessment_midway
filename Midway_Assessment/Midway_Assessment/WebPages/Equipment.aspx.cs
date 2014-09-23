@@ -41,6 +41,8 @@ namespace Midway_Assessment.WebPages
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
+            AckMessage message = new AckMessage();
+            message.Clear(acknowledgementBox);
             if (Page.IsValid)
             {
                 try
@@ -54,17 +56,16 @@ namespace Midway_Assessment.WebPages
                     
                     }
                     EquipmentBL objEquipBL = new EquipmentBL(EquipmentFilePath);
-                    AckMessage message = new AckMessage();
                     
                     if (objEquipBL.DeleteRecord(int.Parse(Session["EquipmentID"].ToString())))
                     {
-                        message.Delete(this.txtEquipName.Text.Trim(), Response);
+                        message.Delete(this.txtEquipName.Text.Trim(), acknowledgementBox);
                         BindGrid();
                         clearControls();
                     }
                     else
                     {
-                        message.DeleteFailed(this.txtEquipName.Text.Trim(), Response);
+                        message.DeleteFailed(this.txtEquipName.Text.Trim(), acknowledgementBox);
                     }
                 }
                 catch (Exception ex)
@@ -78,30 +79,34 @@ namespace Midway_Assessment.WebPages
         void throwException( string exception)
         {
 
-            Response.Write("<h2>Error</h2>\n");
-            Response.Write("<p>"+exception+"</p>\n");
-            Response.Write("==========================================");
+            //Response.Write("<h2>Error</h2>\n");
+            //Response.Write("<p>"+exception+"</p>\n");
+            //Response.Write("==========================================");
+
+            
+            acknowledgementBox.InnerText = "<p class='text-danger'> "+exception+" </p>";
             
         }
         protected void btnAdd_Click(object sender, EventArgs e)
         {
+            AckMessage message = new AckMessage();
+            message.Clear(acknowledgementBox);
             if (Page.IsValid)
             {
                 try
                 {
                     EquipmentBL objEquipBL = new EquipmentBL(EquipmentFilePath);
-                    AckMessage message = new AckMessage();
-
+                 
                     ClassProperties.Equipment objEquip = getEquipmentObject();
                     if (objEquipBL.AddRecord(objEquip))
                     {
-                        message.Save(objEquip.Name,Response);
+                        message.Save(objEquip.Name,acknowledgementBox);
                         BindGrid();
                         clearControls();
                     }
                     else
                     {
-                        message.SaveFailed(objEquip.Name, Response);
+                        message.SaveFailed(objEquip.Name, acknowledgementBox);
                     }
                 }
                 catch (Exception ex)
@@ -138,6 +143,9 @@ namespace Midway_Assessment.WebPages
 
         protected void gvEquipment_SelectedIndexChanged(object sender, EventArgs e)
         {
+            AckMessage ackMessage = new AckMessage();
+            ackMessage.Clear(acknowledgementBox);
+
             populateControls(this.gvEquipment.SelectedIndex);
         }
 
@@ -149,23 +157,25 @@ namespace Midway_Assessment.WebPages
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
+            AckMessage message = new AckMessage();
+            message.Clear(acknowledgementBox);
+
             if (Page.IsValid)
             {
                 try
                 {
                     EquipmentBL objEquipBL = new EquipmentBL(EquipmentFilePath);
-                    AckMessage message = new AckMessage();
                     ClassProperties.Equipment objEquip = getEquipmentObject();
                     objEquip.ID = int.Parse(Session["EquipmentID"].ToString());
                     if (objEquipBL.UpdateRecord(objEquip))
                     {
-                        message.Update(objEquip.Name, Response);
+                        message.Update(objEquip.Name, acknowledgementBox);
                         BindGrid();
                         clearControls();
                     }
                     else
                     {
-                        message.UpdateFailed(objEquip.Name, Response);
+                        message.UpdateFailed(objEquip.Name, acknowledgementBox);
                     }
                 }
                 catch (Exception ex)

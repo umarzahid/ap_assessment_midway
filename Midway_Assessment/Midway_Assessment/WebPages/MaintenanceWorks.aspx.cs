@@ -74,31 +74,30 @@ namespace Midway_Assessment.WebPages
         void throwException(string exception)
         {
 
-            Response.Write("<h2>Error</h2>\n");
-            Response.Write("<p>" + exception + "</p>\n");
-            Response.Write("==========================================");
+            acknowledgementBox.InnerText = "<p class='text-danger'> " + exception + " </p>";
 
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
+            AckMessage message = new AckMessage();
+            message.Clear(acknowledgementBox);
             if (Page.IsValid)
             {
                 try
                 {
                     EquipmentMaintenanceBL objEquipMaintenanceBL = new EquipmentMaintenanceBL(EquipmentMaintenanceFilePath, EquipmentFilePath);
-                    AckMessage message = new AckMessage();
-
+                
                     ClassProperties.EquipmentMaintenance objEquipMaintenance = getEquipmentMaintenanceObject();
                     if (objEquipMaintenanceBL.AddRecord(objEquipMaintenance))
                     {
-                        message.Save("Record", Response);
+                        message.Save("Record", acknowledgementBox);
                         BindGrid();
                         clearControls();
                     }
                     else
                     {
-                        message.SaveFailed("Record", Response);
+                        message.SaveFailed("Record", acknowledgementBox);
                     }
                 }
                 catch (Exception ex)
@@ -140,23 +139,25 @@ namespace Midway_Assessment.WebPages
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
+            AckMessage message = new AckMessage();
+            message.Clear(acknowledgementBox);
             if (Page.IsValid)
             {
                 try
                 {
                     EquipmentMaintenanceBL objEquipMaintenanceBL = new EquipmentMaintenanceBL(EquipmentMaintenanceFilePath, EquipmentFilePath);
-                    AckMessage message = new AckMessage();
+                   
                     ClassProperties.EquipmentMaintenance objEquipMaintenance = getEquipmentMaintenanceObject();
                     objEquipMaintenance.MaintenanceWorkId = int.Parse(Session["MaintenanceWorkID"].ToString());
                     if (objEquipMaintenanceBL.UpdateRecord(objEquipMaintenance))
                     {
-                        message.Update("The record", Response);
+                        message.Update("The record", acknowledgementBox);
                         BindGrid();
                         clearControls();
                     }
                     else
                     {
-                        message.UpdateFailed("The record", Response);
+                        message.UpdateFailed("The record", acknowledgementBox);
                     }
                 }
                 catch (Exception ex)
@@ -168,23 +169,24 @@ namespace Midway_Assessment.WebPages
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
+            AckMessage message = new AckMessage();
+            message.Clear(acknowledgementBox);
             if (Page.IsValid)
             {
                 try
                 {
 
                     EquipmentMaintenanceBL objEquipMaintenanceBL = new EquipmentMaintenanceBL(EquipmentMaintenanceFilePath, EquipmentFilePath);
-                    AckMessage message = new AckMessage();
-
+                 
                     if (objEquipMaintenanceBL.DeleteRecord(int.Parse(Session["MaintenanceWorkID"].ToString())))
                     {
-                        message.Delete("The record", Response);
+                        message.Delete("The record", acknowledgementBox);
                         BindGrid();
                         clearControls();
                     }
                     else
                     {
-                        message.DeleteFailed("The record", Response);
+                        message.DeleteFailed("The record", acknowledgementBox);
                     }
                 }
                 catch (Exception ex)
@@ -208,6 +210,8 @@ namespace Midway_Assessment.WebPages
 
         protected void gvEquipMaintenace_SelectedIndexChanged(object sender, EventArgs e)
         {
+            AckMessage message = new AckMessage();
+            message.Clear(acknowledgementBox);
             populateControls(gvEquipmentMaintenance.SelectedIndex);
         }
         void populateControls(int selectedRowNumber)
@@ -248,30 +252,6 @@ namespace Midway_Assessment.WebPages
                 this.ValidationSummary_Update.Visible = false;
             }
         }
-
-        //protected void EquipmentValidator_ServerValidate(object source, ServerValidateEventArgs args)
-        //{
-        //    if (cmbEquipment.SelectedIndex > 0)
-        //    {
-        //        args.IsValid = true;
-        //    }
-        //    else
-        //    {
-        //        args.IsValid = false;
-        //    }
-        //}
-
-        //protected void HourValidator_ServerValidate(object source, ServerValidateEventArgs args)
-        //{
-        //    if (this.cmbHour.SelectedIndex > 0)
-        //    {
-        //        args.IsValid = true;
-        //    }
-        //    else
-        //    {
-        //        args.IsValid = false;
-        //    }
-        //}
 
         protected void txtDate_TextChanged(object sender, EventArgs e)
         {

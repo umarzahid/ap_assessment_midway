@@ -24,22 +24,23 @@
     <script type="text/javascript" src="../Script/bs.pagination.js"></script>
    
      <h2>Equipment</h2>
-    <form id="form1" runat="server" class="form-horizontal">
+    <form id="form1" runat="server" class="form-inline">
     <div>
     
         <table class="table borderless" >
             <tr>
                 <td class="auto-style2" >&nbsp;</td>
                 <td class="auto-style1" >
-                    &nbsp;</td>
+                    <div runat="server" id="acknowledgementBox" ></div>
+                    
                 <td >&nbsp;</td>
             </tr>
             <tr>
                 <td class="auto-style2" >
-                    <asp:Label ID="lblEquipName" CssClass="label-style" runat="server" Font-Bold="True" Font-Overline="False" Font-Strikeout="False">Name</asp:Label>
+                    <asp:Label ID="lblEquipName" CssClass="control-label col-xs-10" runat="server" Font-Bold="True" Font-Overline="False" Font-Strikeout="False">Name</asp:Label>
                 </td>
                 <td class="auto-style1" >
-                    <asp:TextBox ID="txtEquipName" CssClass="textbox-style" runat="server" Height="25px" Width="336px" OnTextChanged="txtEquipName_TextChanged" ValidationGroup="DataValidator"></asp:TextBox>
+                    <asp:TextBox ID="txtEquipName" CssClass="form-control" runat="server"  Width="300px" OnTextChanged="txtEquipName_TextChanged" ValidationGroup="DataValidator"></asp:TextBox>
                 </td>
                 <td >
                     <asp:CustomValidator ID="validatorAdd" runat="server" CssClass="validator-style" ErrorMessage="Error Message" ForeColor="Red" OnServerValidate="validatorAdd_ServerValidate" Display="Dynamic" ValidationGroup="Add">Error Message</asp:CustomValidator>
